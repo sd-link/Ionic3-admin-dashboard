@@ -1,0 +1,248 @@
+<!-- TODO going to this page returns an error:
+
+ Cannot find a differ supporting object '[object Object]' of type 'object'. NgFor only supports binding to Iterables such as Arrays.
+
+-->
+
+
+
+<!-- TODO
+
+Domains should be implemented as a table:
+
+Domain name   DNS Target (?)  SSL Status  delete
+
+eg.
+example.com anapp.cloud <a href="#edit">ACM</a> Delete
+
+eg but not exact copy https://slack-files.com/T21KV1XBP-F6SSQC69H-6759ed092e
+
+
+The configure SSL button should be a modal:
+https://newiteration.slack.com/files/andrewklau/F6Q7C0740/screenshot_from_2017-08-19_20-00-30.png
+
+- Automatic Certificate Manager
+  AusNimbus will automatically provision and manage the reneal of your SSL certificates using Let's Encrypt
+
+  [Next]
+  Redirect to https (yes or no)
+
+- Manual
+  Upload your own purchased certificate.
+
+  [Next]
+  Manual will present three text areas for Certificate, Certificate Authority and Private Key
+
+  [Next]
+  Redirect to https (yes or no)
+
+When click on ACM or Manual from the table (ie. the edit button):
+https://newiteration.slack.com/files/andrewklau/F6QSGFU74/screenshot_from_2017-08-19_20-05-58.png
+
+The table can also be left empty and their default appname-project.anapp.cloud will be shown
+
+-->
+
+<form class="form-with-border mt30">
+    <div class="fs-form-group pt40 pd15 plr20 row ">
+        <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">Domain Name</h3>
+        </div>
+        <div class="fs-col-8-sm">
+            <div class="row">
+                <div class="fs-col-8">
+                    <input type="text" class="form-text disabled" name="subDomainUrl" [value]="settingsData?.subDomainUrl" disabled/>
+                </div>
+                <div class="fs-col-4">
+                    .anapp.cloud
+                </div>
+            </div>
+            <div class="mb10 mt15">
+                <label class="fs-con-label mb0">
+                  <input type="checkbox" name="directHttps" class="checkbox" [checked]="true" [(ngModel)]="settingsData.directHttps"/>
+                  Redirect to https
+                </label>
+            </div>
+            <div class="mb10">
+                <label class="fs-con-label mb0">
+                  <input type="checkbox" name="acm" class="checkbox" [checked]="true" [(ngModel)]="settingsData.acm"/>
+                  Automatic certificate manager  <i class="fa fa-info-circle ml5"></i>
+                </label>
+            </div>
+            <div class="mb10">
+                <label class="fs-con-label mb0">
+                  <input type="checkbox" name="certificate" class="checkbox" [checked]="false" [(ngModel)]="settingsData.certificate.active"/>
+                  Upload own SSL cert
+                </label>
+            </div>
+            <div class="mb10 mt10" *ngIf="settingsData.certificate.active">
+                <label class="fs-con-label mb0">
+                  <textarea name="certificateKey" id="" cols="30" rows="10" [(ngModel)]="settingsData.certificate.key" placeholder="Certificate, Certificate Key, CA"></textarea>
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- TODO ERWIN:
+    fix the styling of this section, it also needs to have the "Encrypt" variable checkbox option
+    https://4slicing.com/ausnimbus/apps/create-settings.html
+
+    without cancel/save button
+
+    When an environment variable is "Encrypted" then it should be stored in the secrets otherwise it goes into ConfigMap
+  -->
+    <div class="fs-form-group pd15 plr20 row ">
+        <div class="fs-col-4-sm">
+          <h3 class="muli-18 mb10">Environment Variables</h3>
+          <p class="reg-16">Environment Variables define environment based settings that your application can use.</p>
+        </div>
+        <div class="fs-col-8-sm">
+            <ng-template ngFor let-item let-i="index" [ngForOf]="settingsData.configVariables">
+                <div class="aus-form-inline">
+                    <span>
+                    <input type="text" class="form-text" [name]="'key-' + i" value="{{item.key}}" placeholder="KEY"/>
+                    </span>
+                    <span>
+                    <input type="text" class="form-text" [name]="'val-' + i" value="{{item.value}}" placeholder="VALUE"/>
+                    </span>
+                    <span>
+                    <i class="fa fa-minus-circle aus-red" (click)="removeVariable(i)"></i>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="aus-form-inline">
+                <span>
+                  <input type="text" class="form-text" placeholder="KEY" name="newVarName" [(ngModel)]="newVariable.key"/>
+                </span>
+                <span>
+                  <input type="text" class="form-text" placeholder="VALUE" name="newVarKey" [(ngModel)]="newVariable.value"/>
+                </span>
+                <span>
+                  <i class="fa fa-plus-circle aus-green" (click)="submitVariable()"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- TODO ERWIN Fix the styling of this section -->
+    <div class="fs-form-group ptd15 plr20 row">
+        <div class="fs-col-4-sm">
+          <h3 class="muli-18 mb10">Deployment Strategy</h3>
+          <p class="reg-16">The deployment strategy defines how new application versions are rolled out. <a href="#">Learn more</a></p>
+        </div>
+        <!-- TODO Andrew Documentation:
+        deployment strategy have a default timeout of 10 minutes
+
+        Rolling Deployment:
+        - Rolling deployments slowly replace old instances of the application with instances of the new application version. The new version is tested before all of the old instances are replaced. If the healthchecks never pass, the deployment is removed and automatically rolled back. Healthchecks must be configured for automatic rollback to take place.
+
+        Rolling deployments allow for a zero downtime application rollout however means your application must support having both old and new code running at the same time.
+
+        Recreate Deployment:
+        Recreate deployments will remove all old instances of the application before deploying the new application version. This strategy is used if your application cannot tollerate running two versions of code at the same time (for example must run migrations between each version). A recreate deployment incurs a brief downtime as no instances of your application will be running during the cross over time. This ensures your application is never running two versions at the same time.
+
+
+      -->
+        <div class="fs-col-6-sm">
+            <div class="fs-select single default">
+                <select class="form-select" name="rolling" [(ngModel)]="settingsData.rollouts">
+                  <option value="rolling" selected>Rolling Deployments</option>
+                  <option value="recreate">Recreate Reployments</option>
+                </select>
+            </div>
+            <p class="reg-16 mt15">Rolling deployments allow for a zero downtime application rollout however means your application must support having both old and new code running at the same time. </p>
+        </div>
+    </div>
+
+
+    <!-- TODO this is removed and replaced with the following instead
+    <div class="fs-form-group ptd15 plr20 row">
+        <div class="fs-col-4-sm">
+            <label>Continuious</label>
+        </div>
+        <div class="fs-col-6-sm">
+            <div class="fs-select single default">
+                <select class="form-select" name="continuious" [(ngModel)]="settingsData.continuious">
+                  <option value="deployment" selected>Deployment</option>
+                  <option value="delivery">Delivery</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    TODO this new section fix this in the class -->
+    <div class="fs-form-group row">
+      <div class="fs-col-4-sm">
+        <h3 class="muli-18 mb10">Automatic Deploys</h3>
+        <div class="reg-16">Enables the built application to be deployed automatically to this app</div>
+      </div>
+      <div class="fs-col-6-sm">
+        <h3 class="reg-16 mb10" *ngIf="codeData.autoDeploy"><i class="fa fa-check mr5 aus-green"></i>Automatic deploys from GitHub are enabled</h3>
+        <h3 class="reg-16 mb10" *ngIf="!codeData.autoDeploy">Automatic deploys from GitHub are disabled</h3>
+        <div class="reg-16">
+          Every push to <i class="fa fa-code-branch"></i> master will deploy a new version of this app. Deployments happen automatically, so be sure that master is always in a deployable state and any tests have passed before you push. <a href="#">Learn more</a>
+        </div>
+        <!-- TODO enabling this sets the deploymentconfig imageChangeParams triggers to true
+
+        triggers:
+        - imageChangeParams:
+            automatic: true
+
+       -->
+        <div class="mt15">
+          <button class="btn disabled" *ngIf="codeData.autoDeploy" (click)="codeData.autoDeploy = !codeData.autoDeploy">Disable Automatic Deploy</button>
+          <button class="btn primary muli-14" *ngIf="!codeData.autoDeploy" (click)="codeData.autoDeploy = !codeData.autoDeploy">Enable Automatic Deploy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODO ERWIN Define it as a table with a edit button for a modal:
+
+Health Checks
+
+Health checks will test if the application instance is ready to handle requests before it should start receiving traffic. Health checks will also periodicly check if application instances are still available, if an application instance crashes it will automatically be restarted.
+
+Healthchecks will probe with a HTTP GET on a path relative to your app eg. /healthcheck.php
+
+HTTP Path:
+
+
+
+This will update the deploymentconfig spec.template.spec.containers.[0]
+
+livenessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /
+    port: 8080
+    scheme: HTTP
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+name: app-potatona
+ports:
+- containerPort: 8080
+  protocol: TCP
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /
+    port: 8080
+    scheme: HTTP
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+
+-->
+    <div class="fs-form-group ptd15 plr20 row">
+        <div class="fs-col-4-sm">
+          <h3 class="muli-18 mb10">Health Checks</h3>
+          <div class="reg-16">Define a check to ensure your application is able to process traffic.</div>
+        </div>
+        <div class="fs-col-5-sm">
+            <input type="text" class="form-text" placeholder="Configure endpoint (ie. /health)" name="healthCheck" [(ngModel)]="settingsData.healthCheck"/>
+        </div>
+    </div>
+    <div class="mt40 plr20 tar">
+        <button class="btn no-border" (click)="toPrevStep()">Back</button>
+        <button class="btn primary" (click)="submitForm()">Submit</button>
+    </div>
+</form>

@@ -1,0 +1,49 @@
+// Basic
+*, *:after, *:before
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  padding: 0
+  margin: 0
+
+html, body
+  font-family : "Lato", sans-serif
+  @extend .reg-16
+  color: $aus-dark
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004)
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
+  overflow-x: hidden
+
+// Hyperlink Default
+a
+  color: $aus-blue
+  text-decoration: none
+  outline: none
+  cursor: pointer
+  +transition(all .3s)
+  &:hover, &:focus, &:active
+    text-decoration: none
+    // color: $aus-blue-hover
+    outline: none
+
+.cursor
+  cursor: pointer
+
+// Elem inline
+span
+  display: inline-block
+  vertical-align: middle
+
+// Header Tags Default
+h1, h2, h3, h4, h5, h6
+  margin: 0 0 20px
+
+// hr
+hr
+  border-color: $border
+
+ul
+  list-style: none
+  padding: 0
+  margin: 0

@@ -1,0 +1,92 @@
+<ion-content>
+  <main>
+    <section>
+      <page-title>
+        <a (click)="backToProject()" class="link-back"><i class="fa fa-angle-left mr5"></i>Back to Project</a> {{app?.metadata.name}}
+      </page-title>
+      <tabs [type]="'app'" [active]="'overview'" (onclick)="openPage($event)"></tabs>
+
+      <!--
+        TODO
+      we should stack these metrics vertically, make it a col-6 with activity on the right.
+
+      eg. https://slack-files.com/T21KV1XBP-F6QU96VN0-7c9f1b5558
+
+      memory ===================
+      cpu   ====================
+      network =================
+
+
+      Underneath we need to show the number of running replicas:
+
+      - availableReplicas
+      - replicas
+
+      and the deployed version and source
+
+      -->
+      <section [hidden]="section != 'overview'">
+        <div class="pd20">
+          <div class="row">
+            <div class="fs-col-5-sm">
+              <div class="fs-box">
+                <div class="pd20" *ngIf="!app?.memoryUsage">
+                  <div class="muli-18 tac" *ngIf="blankslate">No data</div>
+                  <loading-spinner *ngIf="!blankslate"></loading-spinner>
+                </div>
+                <div class="row" [hidden]="!app?.memoryUsage">
+                  <div class="fs-col-12-sm">
+                    <canvas id="chart-memory" width="500" [height]="app?.memoryUsage == '0%' ? 25 : 100"></canvas>
+                  </div>
+                  <div class="fs-col-12-sm">
+                    <div class="mt10">
+                      {{app?.memoryUsage}} Memory
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="fs-box">
+                <div class="pd20" *ngIf="!app?.cpuUsage">
+                  <div class="muli-18 tac" *ngIf="blankslate">No data</div>
+                  <loading-spinner *ngIf="!blankslate"></loading-spinner>
+                </div>
+                <div class="row" [hidden]="!app?.cpuUsage">
+                  <div class="fs-col-12-sm">
+                    <canvas id="chart-cpu" width="500" [height]="app?.cpuUsage == '0%' ? 25 : 100"></canvas>
+                  </div>
+                  <div class="fs-col-12-sm">
+                    <div class="mt10">
+                      {{app?.cpuUsage}} CPU
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="fs-box">
+                <div class="pd20" *ngIf="!app?.networkUsage">
+                  <div class="str-16 tac" *ngIf="blankslate">No data</div>
+                  <loading-spinner *ngIf="!blankslate"></loading-spinner>
+                </div>
+                <div class="row" [hidden]="!app?.networkUsage">
+                  <div class="fs-col-12-sm">
+                    <canvas id="chart-network" width="500" [height]="app?.networkUsage == '0%' ? 25 : 100"></canvas>
+                  </div>
+                  <div class="fs-col-12-sm">
+                    <div class="mt10">
+                      {{app?.networkUsage}} Network
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fs-col-7-sm">
+              <div class="fs-box box-app-deploy-history">
+                <app-deploy-history [projectId]="app?.metadata.namespace" [appId]="app?.metadata.name"></app-deploy-history>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+</ion-content>

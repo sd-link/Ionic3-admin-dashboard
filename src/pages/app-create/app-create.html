@@ -1,0 +1,129 @@
+<ion-content>
+  <main class="fs-white">
+    <section>
+
+      <div class="aus-title-page">Create Application</div>
+      <div class="fs-navbar with-progress">
+        <ul>
+          <li [class.active]="activeStep >= 1" [class.passed]="activeStep > 1">
+            <span><i class="fa fa-file-alt reg-24 mr5"></i></span>
+            <span>Configure</span>
+          </li>
+          <li [class.active]="activeStep >= 2" [class.passed]="activeStep > 2">
+            <span><i class="fa fa-code reg-24 mr5"></i></span>
+            <span>Code</span>
+          </li>
+          <li [class.active]="activeStep >= 3" [class.passed]="activeStep > 3">
+            <span><i class="fa fa-server reg-24 mr5"></i></span>
+            <span>Resources</span>
+          </li>
+          <li [class.active]="activeStep >= 4" [class.passed]="activeStep > 4">
+            <span><i class="fa fa-sliders-h reg-24 mr5"></i></span>
+            <span>Settings</span>
+          </li>
+          <li [class.active]="activeStep >= 5" [class.passed]="activeStep > 5">
+            <span><i class="fa fa-tasks reg-24 mr5"></i></span>
+            <span>Summary</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Step 1 : Configure -->
+      <app-create-configure [activeConfig]="dataConfigForm" *ngIf="activeStep == 1" [projectId]="paramProjectId" (submitData)="setConfiguration($event)"></app-create-configure>
+
+      <!-- Step 2 : Code -->
+      <app-create-code [codeData]="dataCodeForm"   [userSecretsLoading]="userSecretsLoading"   [userSecrets]="userSecrets"  [finishedSecretloading]="finishedSecretloading"  (goBack)="prevStep()" *ngIf="activeStep == 2" [projectId]="paramProjectId" [dataConfigForm]="dataConfigForm" (submitData)="setCode($event)" (goTop)="createSecretList()" (createSecretModal)="createSecret()" (createSecretOne)="createSecretX($event)"></app-create-code>
+
+      <!-- Step 3 : Resources -->
+      <app-create-resource [resourceData]="dataResourcesForm" (goBack)="prevStep()" *ngIf="activeStep == 3" (submitData)="setResource($event)"  (getPricingList)="getPricingList()" [pricingList]="pricingList" ></app-create-resource>
+
+      <!-- Step 4 : Settings -->
+      <app-create-setting [settingsData]="dataSettingsForm" (goBack)="prevStep()" *ngIf="activeStep == 4" [projectConfig]="paramProjectId" [appConfig]="dataConfigForm" (submitData)="setSetting($event)"></app-create-setting>
+
+      <!-- Step 5 : Summary -->
+
+      <!-- TODO ERWIN: increase width of this section? -->
+      <form class="form-with-border mt30" *ngIf="activeStep == 5">
+        <div class="w400">
+            <div class="fs-form-group ptd15 row no-gutter">
+                <div class="fs-col-4-sm">
+                    <h3 class="reg-16 mb5">Technology</h3>
+                    <p class="reg-16">Code</p>
+                </div>
+                <div class="fs-col-8-sm reg-16">
+                    <h3 class="reg-16 mb5">{{dataConfigForm?.image.name}}</h3>
+                    <p class="reg-16">{{dataCodeForm?.url}}</p>
+                </div>
+            </div>
+            <div class="fs-form-group ptd15 row no-gutter">
+                <div class="fs-col-4">
+                    <h3 class="reg-16 mb5" *ngIf="dataResourcesForm?.autoScale == 1">Autoscaled</h3>
+                    <h3 class="reg-16 mb5" *ngIf="dataResourcesForm?.autoScale != 1">Manual</h3>
+                    <p class="reg-16">5x {{dataConfigForm?.image.name}} ({{dataResourcesForm?.size}})</p>
+                </div>
+                <div class="fs-col-8 reg-16 tar">
+                    <h3 class="reg-16 mb5">&nbsp;</h3>
+                    <p class="reg-16">${{dataResourcesForm?.cost.price.monthly}}</p>
+                </div>
+            </div>
+            <div class="fs-form-group ptd15 row no-gutter">
+                <div class="fs-col-4">
+                    <h3 class="reg-16 mb5">Estimated Cost</h3>
+                </div>
+                <div class="fs-col-8 reg-16 tar">
+                    <p class="reg-16">${{dataResourcesForm?.cost.price.monthly*5}}/month</p>
+                </div>
+            </div>
+            <div class="mb15">
+                <button class="btn primary fluid" (click)="deploy()">Deploy</button>
+            </div>
+
+            {{deployment|json}}
+
+            <!-- TODO: This should show based on the HTTP POST request that are being sent, only after button is clicked -->
+
+            <!-- Deployment progress  -->
+            <div class="row no-gutter ptd5">
+                <div class="fs-col-9">
+                    <h3 class="reg-16 mb5" [class.aus-grey]="deployment?.progress !== 1">Creating application</h3>
+                </div>
+                <div class="fs-col-3 reg-16 tar">
+                    <i class="fa fa-check-circle mb0 rel aus-green reg-21" *ngIf="deployment?.progress > 1"></i>
+                    <i class="fa fa-spinner fa-spin mb0 rel aus-green reg-21" *ngIf="deployment?.progress == 1"></i>
+                </div>
+            </div>
+            <div class="row no-gutter ptd5">
+                <div class="fs-col-9">
+                    <h3 class="reg-16 mb5" [class.aus-grey]="deployment?.progress !== 2">Configuring environment</h3>
+                </div>
+                <div class="fs-col-3 reg-16 tar">
+                    <i class="fa fa-check-circle mb0 rel aus-green reg-21" *ngIf="deployment?.progress > 2"></i>
+                    <i class="fa fa-spinner fa-spin mb0 rel aus-green reg-21" *ngIf="deployment?.progress == 2"></i>
+                </div>
+            </div>
+            <div class="row no-gutter ptd5">
+                <div class="fs-col-9">
+                    <h3 class="reg-16 mb5" [class.aus-grey]="deployment?.progress !== 3">Building application <a href="#" class="ml10">View build log</a></h3>
+                </div>
+                <div class="fs-col-3 reg-16 tar">
+                    <i class="fa fa-check-circle mb0 rel aus-green reg-21" *ngIf="deployment?.progress > 3"></i>
+                    <i class="fa fa-spinner fa-spin mb0 rel aus-green reg-21" *ngIf="deployment?.progress == 3"></i>
+                </div>
+            </div>
+
+            <!-- Deployment message  -->
+            <ng-template [ngIf]="deployment?.progress >= 4">
+                <div class="aus-grey tac mt30">Your app was successfully deployed.</div>
+                <div class="mt10 tac">
+                    <a href="#" class="btn softgrey mr10">Manage App</a>
+                    <a href="#" class="btn softgrey"><i class="fa fa-external-link mr10"></i>View</a>
+                </div>
+            </ng-template>
+
+            <!-- TODO WHERE CAN WE SHOW THE WEBHOOK URL???? -->
+        </div>
+    </form>
+
+    </section>
+  </main>
+</ion-content>

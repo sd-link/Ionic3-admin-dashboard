@@ -1,0 +1,124 @@
+<form class="form-with-border mt30">
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Size</label>
+        </div>
+        <div class="fs-col-6-sm">
+          <!--TODO APPAI: this comes from the API endpoint
+              https://manage.ausnimbus.com.au/api/v1/dashboard/user/pricing
+
+              We should probably cache this:
+
+              applications {
+              - small
+              - medium
+              - large
+              - xlarge
+              - 2xlarge
+              }
+        -->
+          <select class="fs-select default" name="resourceSize" [(ngModel)]="resourceData.size">
+            <ng-template ngFor let-pricing [ngForOf]="pricingList">
+              <option value="{{pricing[0]}}">Pro-{{ (pricing[0].charAt(0).toUpperCase() + pricing[0].slice(1)).replace('2x','XX').replace('Xl','XL')}} - {{pricing[1]}}MB</option>
+            </ng-template>
+          </select>      
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">Autoscaling</h3>
+            <div class="reg-16">Scale your application horizontally based on your app's current load.</div>
+        </div>
+        <!--
+
+        TODO
+        When AUTO we create the HPA object (hpa service endpoint already defined)
+
+        apiVersion: extensions/v1beta1
+        kind: HorizontalPodAutoscaler
+        metadata:
+          name: appname
+        spec:
+          scaleRef:
+            kind: DeploymentConfig
+            name: appname
+            apiVersion: v1
+            subresource: scale
+          minReplicas: 1 (min replicas)
+          maxReplicas: 10 (max replicas)
+          cpuUtilization:
+            targetPercentage: 104 (this needs to be 70 + 50%, where 70 is default and 50% is a cluster constant define as cpuOvercommit)
+
+
+        If autoscaling is not set to AUTO then the replica count is simply deploymentconfig->spec.replicas
+
+      -->
+        <div class="fs-col-6-sm">
+            <div class="mb15">
+                <span class="mr20">
+                  <label class="fs-con-label">
+                    <input type="radio" name="scalability" class="radio" [(ngModel)]="resourceData.autoScale" [value]="0"/>
+                    <!--TODO ERWIN: manual should just be container count. This might be better implemented as a slider -->
+                    <!-- eg. https://s3.amazonaws.com/heroku-devcenter-files/article-images/498-imported-1485329072-6759d218-dd84-11e6-843b-97d13211c815.png -->
+                    Manual
+                  </label>
+                </span>
+                <span>
+                  <label class="fs-con-label">
+                    <input type="radio" name="scalability" class="radio" [(ngModel)]="resourceData.autoScale" [value]="1"/>
+                    <!--TODO ERWIN: auto should be container min/max. This might be better implemented as a slider -->
+                    Auto
+                  </label>
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <ion-list><ion-item>
+    <ion-range dualKnobs="true" pin=true   [(ngModel)]="minMax" [ngModelOptions]="{standalone:true}" snaps="true"  max="10" min="0" onchange="console.log('sd')"></ion-range>
+    </ion-item></ion-list>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+
+
+                  
+
+            <h3 class="muli-18 mb10">Replicas</h3>
+        </div>
+        <div class="fs-col-6-sm">
+          <ng-template [ngIf]="resourceData?.autoScale == 0">
+              <div class="check-manual-count" style="">
+                  <div class="mb15 aus-count">
+                      <input type="text" class="form-text w100" name="replicaMin" [(ngModel)]="resourceData.replica.min"/>
+                      <button class="btn plus" (click)="setReplica('min', true)"><i class="fa fa-plus"></i></button>
+                      <button class="btn minus" (click)="setReplica('min', false)"><i class="fa fa-minus"></i></button>
+                  </div>
+              </div>
+          </ng-template>
+          <ng-template [ngIf]="resourceData?.autoScale == 1">
+            <div class="check-auto-count">
+              <div class="mb15 aus-count">
+                  <span class="mr10 w40">Min</span>
+                  <span class="mr10">
+                    <input type="text" class="form-text w100" name="replicaMin" [(ngModel)]="resourceData.replica.min"/>
+                    <button class="btn plus" (click)="setReplica('min', true)"><i class="fa fa-plus"></i></button>
+                    <button class="btn minus" (click)="setReplica('min', false)"><i class="fa fa-minus"></i></button>
+                  </span>
+              </div>
+              <div class="mb15 aus-count">
+                  <span class="mr10 w40">Max</span>
+                  <span class="mr10">
+                    <input type="text" class="form-text w100" name="replicaMax" [(ngModel)]="resourceData.replica.max"/>
+                    <button class="btn plus" (click)="setReplica('max', true)"><i class="fa fa-plus"></i></button>
+                    <button class="btn minus" (click)="setReplica('max', false)"><i class="fa fa-minus"></i></button>
+                  </span>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+    </div>
+    <div class="fixed-button-step">
+        <button class="btn no-border" (click)="toPrevStep()">Back</button>
+        <button class="btn primary" (click)="submitForm()">Next</button>
+    </div>
+</form>

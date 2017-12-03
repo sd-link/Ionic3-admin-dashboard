@@ -1,0 +1,26 @@
+<ion-content no-bounce>
+    <main class="aus-login">
+        <section class="aus-center-panel">
+            <div class="fs-container tac">
+                <header><a href="#"><img src="assets/images/logo-ausnimbus.svg" class="img-logo mt20" width="200"/></a></header>
+                <div class="fs-box" *ngIf="hasSuccess">
+                    <h1 class="">Thanks for signing up..</h1>
+                    <div>
+                        <h5>Account has been confirmed.</h5>
+                    </div>
+                </div>
+
+                <div class="fs-box" *ngIf="hasError">
+                    <h1 class="">Confirmation Email</h1>
+                    <div>
+                        <h5>Activation code invalid.</h5>
+                    </div>
+                </div>
+
+                <div class="pt10 tac aus-register-link mb30">
+                    login <a (click)="toLogin()">here</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</ion-content>

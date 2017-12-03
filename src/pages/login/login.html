@@ -1,0 +1,32 @@
+<ion-content no-bounce>
+  <main class="aus-login">
+    <section class="aus-center-panel">
+      <div class="fs-container tac">
+        <div class="fs-box">
+          <div class="mb40"><img src="assets/images/logo-ausnimbus-black.svg" class="img-logo" width="220"></div>
+          <div class="tac muli muli-21 mb40">Login to AusNimbus Dashboard</div>
+          <form>
+            <div class="fs-form-group no-padding">
+              <input class="form-text" name="email" placeholder="Email" type="text" [(ngModel)]="email" focus-me/>
+            </div>
+            <div class="fs-form-group no-padding">
+              <input name="password" type="password" class="form-text" placeholder="Password" [(ngModel)]="password"/>
+            </div>
+            <div class="fs-form-group no-padding tac error" *ngIf="error">
+              Incorrect username or password.
+            </div>
+            <button ion-btn class="btn fluid primary" (click)="onSubmit()">Sign in</button>
+            <div class="fs-form-group no-padding tac mt10">
+              <a (click)="toForgotPassword()">Forgot password?</a>
+            </div>
+          </form>
+        </div>
+
+        <div class="pt10 tac aus-register-link mb30">
+          <!-- TODO the register page is missing -->
+          Dont have account? register <a (click)="toRegister()">here</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</ion-content>

@@ -1,0 +1,22 @@
+img
+  display: inline-block
+  vertical-align: middle
+  &.img-fluid
+    display: block
+    max-width: 100%
+    height: auto
+    margin: 0
+
+.img-initial,
+.img-avatar
+  width: 40px
+  height: 40px
+  background-color: $aus-blue
+  text-transform: uppercase
+  color: $white
+  text-align: center
+  line-height: 40px
+  @extend .lato, .str-14
+  &.circle
+    border-radius: 50%
+    overflow: hidden

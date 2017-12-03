@@ -1,0 +1,12 @@
+{
+    "name": "ausnimbus",
+    "app_id": "b97583b7",
+    "type": "ionic-angular",
+    "proxies": [{
+        "path": "/*",
+        "proxyUrl": "https://api.ausnimbus.com.au"
+    }],
+    "integrations": {
+        "cordova": {}
+    }
+}

@@ -1,0 +1,108 @@
+<!-- TODO this could just stay in the overview page no need for a component? -->
+
+<div class="ptd15 plr20 row">
+  <div class="fs-col-6">
+    <span class="str-16 mr5">Activity History</span>
+  </div>
+  <div class="fs-col-6 tar">
+    <button class="btn xs primary" (click)="instantiateDeploymentConfig()" [disabled]="onDeployProgress" *ngIf="replicationControllers?.lastExecution">Rollout Latest</button>
+  </div>
+</div>
+<hr>
+
+<div class="aus-accordion mt40 mb40" *ngIf="!replicationControllers?.items">
+  <loading-spinner></loading-spinner>
+</div>
+
+<!--
+TODO Remove accordian and make this a col-6
+
+Just do list format, merge the replicationcontrollers and builds by timestamp
+
+
+Icon UserAvatar    email action hash
+                   timestamp version
+
+eg.
+
+hammer AL andrew@andrewklau.com: Deployed v123
+                                 1 minute ago [rollback]
+
+There are two type of activity we can have:
+
+- build
+- deploy
+
+One build object will create two activity entries:
+  - Build started layout:
+
+    Hammer (with plus overlay icon?) .spec.revision.git.commiter.name  .spec.triggeredBy.message build #.metadata.annotations."openshift.io/build.number"
+                                    3 days ago "View build log"
+
+    eg.
+    Hammer-icon  AL     BitBucket Webhook #5
+                        3 days ago "View build log"
+
+  - Build completed/failed (This is only when .status.phase == Completed or Failed):
+
+    Hammer (with tick/cross overlay icon) .spec.revision.git.commiter.name #.metadata.annotations."openshift.io/build.number"
+                                          about 12 hours ago "Rebuild"
+
+    eg.
+    Hammer+tick-icon  AL     Build Completed #5
+                             6 hours ago "Rebuild"
+
+Deploy:
+
+You can get the deployed status from the annotations (.metadata.annotations."openshift.io/deployment.phase").
+
+The icon and text will depend on the (.metadata.annotations."openshift.io/deployment.status-reason")
+
+  - image changed
+
+  Upload-arrow-icon system-avatar  Deployed v .metadata.annotations."openshift.io/deployment-config.latest-version"
+                                   1 day ago (if .status.replicas != 0) ".status.availableReplicas / .status.replicas instances" (else)  "Rollback"
+
+  eg. Upload-arrow-icon system-avatar Deployed v6
+                                      1 day ago  5/5 instances
+
+  - config changed
+
+  Config-icon .metadata.annotation."ausnimbus/?" Config Changed v5
+                                                 2 days ago "Rollback"
+
+  - manual
+
+  Config-icon .metadata.annotation."ausnimbus/?" Manual Rollout v5
+                                                 2 days ago "Rollback"
+
+-->
+<div class="aus-accordion" *ngIf="replicationControllers?.items">
+  <ng-template ngFor let-replicationController let-i="index" [ngForOf]="replicationControllers?.items">
+    <div class="aus-toggle-accordion">
+      <div class="row no-gutter">
+        <div class="fs-col-6">
+            <i class="far fa-rocket mr30"></i> 
+            Version #{{replicationController.deployVersion}}
+          <label class="badge green reg-12 ml20" *ngIf="replicationController.phase == 'Complete' && !replicationController.status.replicas">{{replicationController.phase}}</label>
+          <label class="badge grey reg-12 ml20" *ngIf="replicationController.status.replicas && (i == 0)">
+            <i class="fa fa-refresh reg-12 mr5"></i>
+            Active, {{replicationController.status.replicas}} {{(replicationController.status.replicas > 1) ? 'replicas' : 'replica'}}
+          </label>
+        </div>
+        <div class="fs-col-6 tar">
+          &nbsp;
+          <label class="badge grey reg-12 ml20" *ngIf="replicationController.phase == 'Running'">Running</label>
+          <label class="badge grey reg-12 ml20 aus-rollback-button" *ngIf="replicationController.phase == 'Complete' && !replicationController.status.replicas"
+            (click)="rollbackConfirmation(replicationController.spec.selector.deployment)">
+            <i class="fa fa-refresh reg-12 mr5"></i> Rollback
+          </label>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<pre>
+  {{replicationControllers|json}}
+</pre>

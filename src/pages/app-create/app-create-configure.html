@@ -1,0 +1,106 @@
+<form class="form-with-border mt30">
+    <div class="fs-form-group row" [class.error]="errors?.name" *ngIf="!activeConfig?.lang">
+        <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">App Name</h3>
+           <div class="reg-16">The App Name cannot be changed after it has been set.</div>
+        </div>
+        <div class="fs-col-6-sm">
+            <input id="appName" type="text" class="form-text" name="appName"[(ngModel)]="appName" (ngModelChange)="nameValidation($event)" placeholder="AppName" required="required"/>
+            <div class="error-label" *ngIf="errors?.name">
+              A valid name is applied to all generated resources. It is an alphanumeric (a-z, and 0-9) string with a maximum length of 24 characters, where the first character is a letter (a-z), and the '-' character is allowed anywhere except the first or last character.
+            </div>
+        </div>
+    </div>
+
+    <div class="fs-form-group row" *ngIf="!activeConfig?.lang">
+        <ng-template ngFor let-image let-break="odd" [ngForOf]="vendorImage">
+            <div class="fs-col-6-sm aus-grid" (click)="selectLangIco(image)">
+                <input type="radio" name="a" class="hide radio" id="a" />
+                <label for="a" class="radio-button blue">
+                 <span class="icn-lang">
+                  <i class="font-icon icon-{{icoClass(image.support)}}"></i>
+                </span>
+                <span>
+                  <h3 class="mb0 reg-18">{{image.name}}</h3>
+                  <p>{{image.description}}</p>
+                </span>
+              </label>
+            </div>
+            <div class="clearfix" *ngIf="break"></div>
+        </ng-template>
+    </div>
+    
+    <div class="fixed-button-step" *ngIf="!activeConfig?.lang">
+      <button class="btn primary" (click)="nextStep()"    disabled ="{{isSelectedLang()}}" >Next</button>
+    </div>
+
+    <ng-template [ngIf]="activeConfig?.lang">
+        <div class="fs-form-group row">
+            <div class="fs-col-4-sm">
+                <label class="l-label">Language</label>
+            </div>
+            <div class="fs-col-6-sm">
+              <div class="fs-box-border dark">
+                <span  class="icn-lang">
+                  <i class="font-icon icon-{{icoClass(activeConfig.lang)}} mr10  "></i>
+                </span>
+                <span>
+                   <h2 class="mb5 muli-18">{{activeConfig.image.name}}</h2>
+           		   <a (click)="backStep()">Choose a different language</a>
+                </span>
+              </div>
+            </div>
+        </div>
+        <div class="fs-form-group row">
+            <div class="fs-col-4-sm">
+                <label class="l-label">Vendor</label>
+            </div>
+            <div class="fs-col-6-sm">
+              <select class="fs-select default" name="vendor" [(ngModel)]="activeConfig.vendor" (ngModelChange)="changeSelectedVendor($event)">
+                <ng-template ngFor let-vendor let-i="index" [ngForOf]="selectedLang?.items">
+                  <option value="{{i}}">{{vendor.providerName}}</option>
+                </ng-template>
+              </select>
+
+              <!-- fix padding and provide a better way of laying out this data, maybe bold Documentation: link -->
+              <div class="mt20">
+                <div class="mb5 reg-16">Documentation</div>
+                <p class="mb0">
+                  <a href="{{selectedVendor?.docUrl}}" target="_blank">
+                    {{selectedVendor?.docUrl}}
+                  </a>
+                </p>
+              </div>
+              <div class="mt20">
+                <div class="mb5 reg-16">Vendor</div>
+                <p class="mb0">
+                  <a href="{{selectedVendor?.supportUrl}}" target="_blank">
+                    {{selectedVendor?.supportUrl}}
+                  </a>
+                </p>
+              </div>
+            </div>
+        </div>
+        <div class="fs-form-group row">
+            <div class="fs-col-4-sm">
+                <label class="l-label">Version</label>
+                <div class="reg-16">Minor versions and patches are automatically updated by the vendor. </div>
+            </div>
+            <div class="fs-col-6-sm">
+              <select class="fs-select default" name="version" [(ngModel)]="activeConfig.version" (ngModelChange)="changeSelectedVersion($event)">
+                <ng-template ngFor let-version let-i="index" [ngForOf]="selectedVendor?.images.spec.tags">
+                  <option value="{{i}}">{{version.name}}</option>
+                </ng-template>
+              </select>
+
+              <div class="reg-16">
+                Selecting <code>latest</code> you will always be upgraded the latest version provided by the vendor, this includes major releases.
+              </div>
+            </div>
+        </div>
+        <div class="fixed-button-step">
+            <button class="btn no-border" (click)="backStep()">Back</button>
+            <button class="btn primary" (click)="submitForm()" [class.disabled]="errors?.name" [disabled]="errors?.name">Next</button>
+        </div>
+    </ng-template>
+</form>

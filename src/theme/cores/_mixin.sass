@@ -1,0 +1,64 @@
+// Animate
+=transition($val)
+  transition: $val
+  -webkit-transition: $val
+  -moz-transition: $val
+
+=transform($val)
+  transform: $val
+  -webkit-transform: $val
+  -moz-transform: $val
+
+// Flex
+=flexbox()
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+=flex($values)
+  -webkit-box-flex: $values
+  -moz-box-flex:  $values
+  -webkit-flex:  $values
+  -ms-flex:  $values
+  flex:  $values
+
+=order($val)
+  -webkit-box-ordinal-group: $val
+  -moz-box-ordinal-group: $val
+  -ms-flex-order: $val
+  -webkit-order: $val
+  order: $val
+
+// Device
+=mobilexs
+  @media screen and (max-width: $xxs)
+    @content
+
+=mobile
+  @media screen and (max-width: $xs)
+    @content
+
+=tabletPotrait
+  @media screen and (min-width: $xs) and (max-width: $sm)
+    @content
+
+=tabletLandscape
+  @media screen and (min-width: $sm) and (max-width: $md)
+    @content
+
+=laptopScreen
+  @media screen and (min-width: $md) and (max-width: $lg)
+    @content
+
+=largeScreen
+  @media screen and (min-width: $lg)
+    @content
+
+=rotateLoader
+  @keyframes rotating
+    from
+      transform: rotate(0deg)
+    to
+      transform: rotate(360deg)

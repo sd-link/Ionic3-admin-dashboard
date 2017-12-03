@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Create Source Secret</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon item-right name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-1>
+        </ion-col>
+        <ion-col col-3>
+            <ion-label>Secret Name </ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-input type="text" class="form-text mb10" name="secretName" [(ngModel)]="secretName" placeholder="Please input secret name here."></ion-input>
+        </ion-col>
+        <ion-col col-1>     
+        </ion-col>
+      </ion-row> 
+
+      <ion-row>
+        <ion-col col-1>
+        </ion-col>
+        <ion-col col-4>
+            <ion-label>Authentication Type </ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-select (ionChange)="onSelectChange($event)">
+            <ion-option value="0" selected="true">Basic Authentication</ion-option>
+            <ion-option value="1">SSH Key</ion-option>
+          </ion-select>          
+        </ion-col>
+        <ion-col col-1>     
+        </ion-col>
+      </ion-row> 
+
+      <ion-row  [hidden]="!secretMode">
+        <ion-col col-1>
+        </ion-col>
+        <ion-col col-3>
+            <ion-label>SSH key </ion-label>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col col-1>     
+        </ion-col>
+      </ion-row>
+      <ion-row  [hidden]="!secretMode">
+        <ion-col col-1></ion-col>
+        <ion-col>
+          <ion-textarea  rows="5"  name="sshKey"  [(ngModel)]="sshKey"  ></ion-textarea>
+        </ion-col>
+        <ion-col col-1></ion-col>
+      </ion-row>
+      
+      <ion-row  [hidden]="secretMode">
+        <ion-col col-1>
+        </ion-col>
+        <ion-col col-3>
+            <ion-label>User Name </ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-input type="text" class="form-text mb10" name="userName" [(ngModel)]="userName" ></ion-input>
+        </ion-col>
+        <ion-col col-1>     
+        </ion-col>
+      </ion-row>
+
+      <ion-row  [hidden]="secretMode">
+        <ion-col col-1>
+        </ion-col>
+        <ion-col col-3>
+            <ion-label>Password </ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-input type="password" class="form-text mb10"  name="passWord" [(ngModel)]="passWord"></ion-input>
+        </ion-col>
+        <ion-col col-1>     
+        </ion-col>
+      </ion-row> 
+    </ion-grid>  
+</ion-content>
+<ion-footer right text-right>
+  <ion-grid> 
+    <ion-row align-items-end>
+        <ion-col  col-11 >
+            <button ion-button (click)="createSecretNow()">Create</button>
+            <button ion-button (click)="dismiss()">Close</button>
+        </ion-col>
+      <ion-col col-1></ion-col>
+    </ion-row>
+  </ion-grid>     
+</ion-footer>

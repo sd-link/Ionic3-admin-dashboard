@@ -1,0 +1,8 @@
+=color($prefix:'')
+  @for $i from 1 through length($color)
+    .#{$prefix}fs-#{nth($colorname, $i)}
+      background-color: #{nth($color, $i)}
+    .#{$prefix}aus-#{nth($colorname, $i)}
+      color: #{nth($color, $i)}
+
++color()

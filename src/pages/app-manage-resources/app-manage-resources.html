@@ -1,0 +1,99 @@
+<!-- SEE app-create-resources -->
+<ion-content>
+  <main class="fs-white">
+    <section>
+      <page-title>
+        <a (click)="backToProject()" class="link-back"><i class="fa fa-angle-left mr5"></i>Back to project</a> {{app?.metadata.name}}
+      </page-title>
+      <tabs [type]="'app'" [active]="'resources'" (onclick)="openPage($event)"></tabs>
+      <form class="form-with-border" *ngIf="!loadingData">
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Size</label>
+          </div>
+          <div class="fs-col-6-sm">
+            <div class="fs-select single default">
+              <select class="fs-select default" name="resourceSize" [(ngModel)]="resource.limits.memory">
+                <option value="256Mi">Pro-Small - 256MB</option>
+                <option value="512Mi">Pro-Medium - 512MB</option>
+                <option value="1Gi">Pro-Large - 1024MB</option>
+                <option value="2Gi">Pro-XLarge - 2048MB</option>
+                <option value="4Gi">Pro-XXLarge - 4096MB</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Autoscaling</label>
+          </div>
+          <div class="fs-col-6-sm">
+            <div class="reg-16 mb10">Scale your application horizontally based on your app's current load.</div>
+            <span class="mr20">
+              <label class="fs-con-label">
+                <input type="radio" name="scalability" class="radio" [(ngModel)]="resource.autoScale" [value]="0"/>
+                Manual
+              </label>
+            </span>
+            <span>
+              <label class="fs-con-label">
+                <input type="radio" name="scalability" class="radio" [(ngModel)]="resource.autoScale" [value]="1"/>
+                Auto
+              </label>
+            </span>
+          </div>
+        </div>
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">Replicas</h3>
+          </div>
+          <div class="fs-col-6-sm">
+            <ng-template [ngIf]="resource?.autoScale == 0">
+              <counter [counterValue]="resource.manualScaleValue" (valueChange)="updateReplicasCount($event)"></counter>
+            </ng-template>
+            <ng-template [ngIf]="resource?.autoScale == 1">
+              <div>
+                <ion-range name="rangeScale" dualKnobs="true" min="1" max="25" [(ngModel)]="rangeObject" color="primary">
+                  <ion-label range-left>1</ion-label>
+                  <ion-label range-right>25</ion-label>
+                </ion-range>
+              </div>
+              <div class="reg-16 tac">Autoscaling range {{rangeObject.lower}}-{{rangeObject.upper}}.</div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Workers</label>
+          </div>
+          <div class="fs-col-6-sm">
+            <span>
+              <ion-toggle name="enableWorkers" [(ngModel)]="resource.enableWorkers"></ion-toggle>
+            </span>
+            <span>
+              <a (click)="modalWorkers()">Edit</a>
+            </span>
+          </div>
+        </div>
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Cron Jobs</label>
+          </div>
+          <div class="fs-col-6-sm">
+            <span>
+              <ion-toggle name="enableCronJobs" [(ngModel)]="resource.enableCronJobs"></ion-toggle>
+            </span>
+            <span>
+              <a (click)="modalCronJobs()">Edit</a>
+            </span>
+          </div>
+        </div>
+        <div class="mt40 plr20 tar">
+          <button-action [loadingText]="'Saving'" [state]="loading" (submit)="submitData()">
+            Save
+          </button-action>
+        </div>
+      </form>
+    </section>
+  </main>
+</ion-content>

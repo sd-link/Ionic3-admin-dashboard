@@ -1,0 +1,80 @@
+page-payment-method-modal {
+  .aus-modal{
+    background-color: $white;
+    padding: 30px;
+    * {
+      // display: block;
+    }
+    .braintree-loader__container{
+      background-color: $white !important;
+      border: 0 !important;
+    }
+    #dropin-container{
+      .braintree-show-methods{
+        .braintree-dropin{
+          font-family: "Lato", sans-serif;
+          background-color: $white;
+          .braintree-heading{
+            position: relative;
+            @extend .muli-21, .mb0 ;
+          }
+          .braintree-heading[data-braintree-id="choose-a-way-to-pay"]{
+            @extend .lato, .reg-16, .mb10 ;
+          }
+          .braintree-heading[data-braintree-id="other-ways-to-pay"]{
+            @extend .muli-21, .mb30, .mt50 ;
+          }
+          .braintree-placeholder{
+            display: none;
+          }
+          .braintree-upper-container{
+            &:before{
+              display: none;
+            }
+            .braintree-methods--active{
+              .braintree-method--active{
+                border-width: 1px;
+                border-radius: 0;
+                background-color: #219653;
+                .braintree-method__label{
+                  color: $white;
+                }
+                .braintree-method__check{
+                  background-color: $aus-green;
+                }
+              }
+              .braintree-method{
+                width: 100%;
+                border-color: #ddd;
+                .braintree-method__label{
+                  margin-left: 5px;
+                }
+              }
+              .braintree-method:first-child,
+              .braintree-method:last-child{
+                border-radius: 0;
+              }
+            }
+          }
+          .braintree-options-list{
+            display: flex;
+            .braintree-option{
+              flex: none;
+              width: 50%;
+              border: 1px solid #ddd;
+              border-radius: 0;
+              background-color: $white;
+              &:last-child{
+                border-left-width: 0;
+              }
+              &:first-child,
+              &:last-child{
+                border-radius: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

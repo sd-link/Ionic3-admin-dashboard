@@ -1,0 +1,327 @@
+// Forms
+form,
+.form
+  &.form-with-border
+    .fs-form-group
+      border-top: 1px solid $aus-white-hover
+      margin: 0
+      line-height: 45px
+      &.no-border
+        border-top: 0
+      span
+        &:last-child
+          @extend .reg-16
+      &:first-child
+        border-top: 0
+      label, .label
+        margin-top: 0
+        line-height: 45px
+        +mobile
+          line-height: normal
+      .line-normal, .mb0
+        line-height: normal
+        label
+          line-height: normal
+  .fs-form-group
+    width: 100%
+    padding: 40px 30px
+    @extend .mb15, .clearfix
+    &.mib, &.max, &.money, &.no-padding
+      padding: 0
+    &:last-child
+      margin-bottom: 0
+    &>[class*='fs-col-']
+      +mobile
+        margin-bottom: 15px
+    label, .label
+      display: block
+      margin-top: 5px
+      @extend .reg-16, .tal
+      &.r-label
+        line-height: 40px
+        margin-top: 0
+        @extend .tar, .muli-18
+        +mobile
+          display: block
+          text-align: left
+          line-height: normal
+          margin: 0 0 15px
+      &.l-label
+        @extend .r-label
+        text-align: left
+        +mobile
+          display: block
+          text-align: left
+          line-height: normal
+          margin: 0
+      &.small
+        @extend .reg-14
+    .fa-check-circle
+      position: absolute
+      right: 25px
+      top: 0
+      line-height: 45px
+      &.rel
+        position: relative
+        right: auto
+        line-height: normal
+    .form-text, .form-area, textarea
+      @extend .lato, .reg-16
+      width: 100%
+      height: 45px
+      border: 1px solid $border
+      border-radius: 3px
+      padding: 5px 16px
+      position: relative
+      +transition(all .3s)
+      &.w100
+        width: 100px
+      &:hover, &:focus
+        outline: none
+        border-color: $aus-blue
+      &.disabled, &:disabled
+        color: $aus-dark
+        background-color: $aus-softgrey
+        cursor: not-allowed
+        pointer-events: none
+        &:hover,
+        &:focus
+          border-color: $aus-softgrey
+    .form-area
+      height: 120px
+    &.max
+      max-width: 200px
+    &.mib, &.money
+      max-width: 200px
+      position: relative
+      &:after
+        display: block
+        position: absolute
+        border-radius: 0 3px 3px 0
+        line-height: 45px
+        padding: 0 15px
+        top: 0
+        right: 0
+        content: 'MiB'
+        background-color: $aus-grey
+        color: $white
+    &.money
+      .form-text
+        padding-left: 50px
+      &:after
+        border-radius: 3px 0 0 3px
+        left: 0
+        right: auto
+        content: '$'
+    &.success
+      .label, .fa
+        color: $aus-green
+      .form-text
+        border-color: $aus-green
+    &.error
+      .label
+        color: $aus-red
+      input
+        border-color: $aus-red
+        &:active, &:hover, &:focus
+          border-color: $aus-red
+  &.fs-form-inline
+    .fs-form-group
+      display: inline-block
+      vertical-align: top
+
+select
+  &.fs-select
+    font-family: "Lato", sans-serif
+    -webkit-appearance: none
+    width: 100%
+    height: 45px
+    border: 1px solid $aus-softgrey
+    border-radius: 3px
+    padding: 5px 35px 5px 16px
+    position: relative
+    background-image: url(../assets/images/arrow-down.png)
+    background-position: calc(100% - 16px) 20px
+    background-repeat: no-repeat
+    background-color: $white
+    @extend .reg-16
+    +transition(all .3s)
+    &.fluid
+      max-width: 100%
+    &:hover, &:focus
+      outline: none
+      border-color: $aus-blue
+    &.disabled, &:disabled
+      color: $aus-dark
+      background-color: $aus-softgrey
+      cursor: not-allowed
+      pointer-events: none
+      &:hover,
+      &:focus
+        border-color: $aus-softgrey
+
+.fs-select
+  max-width: 200px
+  &.default
+    max-width: 100%
+  &.with-icon
+    max-width: calc(100% - 30px)
+  .select2
+    display: block
+    width: 100% !important
+    .selection
+      display: block
+      border: 1px solid $aus-softgrey
+      border-radius: 3px
+      height: 45px
+      padding: 0 16px
+      width: 100%
+      @extend .reg-16
+      &:hover,&:focus
+        border-color: $aus-blue
+      .select2-selection--single
+        position: relative
+        outline: none !important
+        border: 0
+        height: 43px
+        &:hover,&:focus
+          outline: none !important
+        .select2-selection__arrow
+          display: none
+        &::after
+          position: absolute
+          top: 0
+          right: 0
+          display: inline-block
+          line-height: 43px
+          font-family: FontAwesome
+          text-rendering: auto
+          -webkit-font-smoothing: antialiased
+          -moz-osx-font-smoothing: grayscale
+          content: "\f0d7"
+          color: $aus-dark
+        .select2-selection__rendered
+          line-height: 43px
+          padding-left: 0
+          .select2-selection__clear
+            display: inline-block
+            width: 10px
+            height: 10px
+            background-size: 100%
+            background-repeat: no-repeat
+            background-position: center
+            margin-top: 15px
+            margin-right: 10px
+  &.repository
+    .selection
+      position: relative
+      padding-left: 33px
+      &:before
+        display: inline-block
+        font: normal normal normal 14px/1 FontAwesome
+        font-size: inherit
+        text-rendering: auto
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+        content: "\f126"
+        position: absolute
+        left: 16px
+        top: 13px
+
+.select2-container
+  .select2-dropdown
+    border: 1px solid $aus-softgrey
+    border-radius: 3px
+    box-shadow: 0 2px 4px 0 rgba(61,119,180,0.2)
+    &.select2-dropdown--above
+      margin-top: -2px
+    &.select2-dropdown--below
+      margin-top: 2px
+    .select2-results
+      .select2-results__options
+        .select2-results__option
+          padding: 5px 16px
+          &.select2-results__option--highlighted
+            background-color: $aus-blue
+            color: $white
+        .select2-results__option[aria-selected=true]
+          background-color: $aus-blue
+          color: $white
+  &.single-select2-without-search
+    .select2-dropdown
+      .select2-search
+        display: none
+
+.checkbox, .radio
+  -webkit-appearance: none
+  display: inline-block
+  vertical-align: middle
+  margin: -4px 5px 0 0
+  width: 20px
+  height: 20px
+  border: 1px solid $border
+  background-color: $white
+
+.checkbox
+	border-radius: 3px
+	background-image: none
+	background-size: calc(100% - 5px)
+	background-position: center
+	background-repeat: no-repeat
+	cursor: pointer
+	outline: none
+	+transition(all .3s)
+	&:checked
+		background-image: url('../assets/images/ico-check.svg')
+		border-color: $aus-blue
+		outline: none
+
+.radio
+	border-radius: 50%
+	position: relative
+	cursor: pointer
+	outline: none
+	+transition(all .3s)
+	&:after
+		position: absolute
+		width: 10px
+		height: 10px
+		border-radius: 50%
+		top: 4px
+		left: 4px
+		background-color: $aus-blue
+		opacity: 0
+		visibility: hidden
+		content: ''
+	&:checked
+		border-color: $aus-blue
+		outline: none
+		&:after
+			opacity: 1
+			visibility: visible
+
+.radio.hide
+	display: none
+
+.radio.hide:checked ~ .radio-button,
+.checkbox.hide:checked ~ .radio-button
+	border-color: $aus-softgrey
+
+.radio.hide:checked ~ .radio-button.blue,
+.checkbox.hide:checked ~ .radio-button.blue
+  border-color: $aus-blue
+
+.fs-con-label
+  cursor: pointer
+  +mobile
+    line-height: normal
+  &.mb0
+    margin-bottom: 0
+    line-height: normal
+  .radio, .checkbox
+    position: relative
+    top: 1px
+    margin-right: 5px
+
+.error-label
+  @extend .reg-14, .aus-red, .pt5, .tal

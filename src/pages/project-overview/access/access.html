@@ -1,0 +1,68 @@
+<!-- TODO
+
+- the avatar should be based on the email address (not user hash)
+
+- We should be caching their rolebinding, since a VIEW rolebinding cannot create applications. Then if they are VIEW only they can't see this in the menu.
+
+-->
+
+<div class="pd20">
+  <div class="fs-box">
+    <h2 class="muli-18">Project Members</h2>
+
+    <div class="offset-30">
+      <loading-spinner *ngIf="!teams.length && !errorPage"></loading-spinner>
+      <div class="tac ptd10" *ngIf="!teams.length && errorPage">{{errorMessage}}</div>
+      <form *ngIf="teams.length">
+        <table class="fs-table">
+          <tbody>
+            <tr *ngFor="let member of teams; let i=index">
+              <td class="img">
+                <span class="img-initial circle">{{ member.initial}}</span>
+              </td>
+              <td class="name">
+                {{ member.email }}
+              </td>
+              <td>
+                <!--disabled: {{ member.disabled }} {{ member.role }}-->
+                <div class="aus-form-inline clearfix">
+                  <div [class.move]="role[i]">
+                    <dropdown-select  [disabled]="member.disabled" [selected]="member.role" [options]='dropdownOptions' (onSelect)="onMemberSelected(i, $event, member.name)"></dropdown-select>
+                    <i *ngIf="!role[i] && !member.disabled && !itemLoading[i]" class="fa fa-trash-alt reg-16"
+                      (click)="removeUserConfirmation(i,member)"></i>
+                    <loading-spinner style="position:absolute; top:32px; right: 30px"
+                      *ngIf="!member.disabled && itemLoading[i]"></loading-spinner>
+                  </div>
+
+                  <div class="btn-group" *ngIf="role[i]">
+                    <button [disabled]="loadingOnChange" (click)="onSave(i)" class="btn xs primary">Save</button>
+                    <button [disabled]="loadingOnChange" (click)="onCancel(i,member.name)" class="btn xs primary">Cancel</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="tac mt40">
+    <div class="row">
+      <div class="fs-col-12-sm">
+        <div class="reg-16 tar">
+          <div class="btn primary" *ngIf="teams.length && !errorPage" (click)="showModal()">
+            Add Member
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<modal [show]="show" (action)="addMember($event)">
+  <div class="modal-header">
+    <h2>Add member</h2>
+  </div>
+  <div class="modal-content">
+    <content-add-member></content-add-member>
+  </div>
+</modal>

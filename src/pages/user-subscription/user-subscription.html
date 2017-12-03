@@ -1,0 +1,127 @@
+<!-- TODO there needs to be two pages:
+
+- register subscription (if the user is on free plan we show them the new subscription page)
+https://4slicing.com/ausnimbus/user/upgrade-subscription.html
+
+- update payment method (if the user is already on a subscription then they should see the modify subscription page)
+https://4slicing.com/ausnimbus/user/modify-subscription.html#
+
+The update subscription page isn't quite right, it should only show the current "Monthly Commitment" and a button to change their payment method.
+
+This page should also show the user's current credit balance
+
+
+
+=====
+
+
+Payment Method and New Subscription should be handled by the payment method modal using braintree dropin ui
+
+
+The usage table should be shown at the bottom, it's currently being shown on the wrong page (project usage)
+ie.  /dashboard/user/usage
+
+The project names should link to the project usage page
+
+-->
+
+<ion-content>
+  <main>
+    <section>
+      <div class="aus-title-page">Upgrade Subscription</div>
+      <div class="pd20">
+        <div class="row">
+          <div class="fs-col-8-sm offset-2-sm">
+          <loading-spinner *ngIf="onLoading"></loading-spinner>
+            <div class="fs-box" *ngIf="!onLoading">
+              <table class="fs-table default">
+                <tr>
+                  <th>Plan</th>
+                  <th>Details</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Standard</td>
+                  <td>Monthly usage based subscription</td>
+                  <td>
+                    <div class="fs-select single">
+                    <button class="btn primary muli-14" (click)="showPaymentModal()">Add Payment Method</button>
+                       <!--  <select class="form-select" [(ngModel)]="paymentOption" (change)="onChangeOption($event)">
+                          <option value="default" selected disabled>Sign up</option>
+                          <option value="card">with Card</option>
+                          <option value="paypal">with PayPal</option>
+                        </select>  -->
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <div class="fs-notif rel warning mt20"><i class="fa fa-exclamation-triangle mr10"></i>Standard plan is a monthly post-paid usage based subscription</div>
+            </div>
+            <div class="fs-box" [hidden]="paymentOption !== 'card' || braintreeLoaded !== true">
+            <form>
+                <div class="fs-form-group">
+                    <label class="label mb10">Card Number</label>
+                    <div class="form-text" id="card-number"></div>
+                    <span class="helper-text">{{ subscriptionMessage?.error }}</span>
+                </div>
+                 <div class="fs-form-group">
+                    <div class="row">
+                      <div class="fs-col-8-sm">
+                        <label class="label mb10">Expiry Date</label>
+                        <div class="row">
+                        <div class="fs-col-4-sm">
+                           <div class="form-text" id="expiration-month"></div>
+                        </div>
+                        <div class="fs-col-4-sm">
+                           <div class="form-text" id="expiration-year"></div>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="fs-col-4-sm">
+                        <label class="label mb10">CVV</label>
+                        <div class="form-text" id="cvv"></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="fs-form-group">
+                  <label class="label mb10">Postcode</label>
+                  <div class="form-text" id="postal-code"></div>
+                </div>
+                <div class="fs-form-group mt40 tar">
+                  <button class="btn lg primary" (click)="submitCard()">Update With Card</button>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</ion-content>
+
+ <!-- form mockup without implement braintree -->
+  <!--  <form>
+                <div class="fs-form-group">
+                  <label class="label mb10">Card Number</label>
+                  <input type="text" class="form-text" placeholder="4111 1111 1111 1111"/>
+                </div>
+                <div class="fs-form-group no-padding">
+                  <div class="row">
+                    <div class="fs-col-6-sm">
+                      <label class="label mb10">Expiry Date</label>
+                      <input type="text" class="form-text" placeholder="MM/YY"/>
+                    </div>
+                    <div class="fs-col-6-sm">
+                      <label class="label mb10">CVV</label>
+                      <input type="text" class="form-text" placeholder="123"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="fs-form-group no-padding">
+                  <label class="label mb10">Postcode</label>
+                  <input type="text" class="form-text"/>
+                </div>
+                <div class="fs-form-group no-padding mt40 tar">
+                  <button class="btn lg primary">Update With Card</button>
+                </div>
+              </form> -->

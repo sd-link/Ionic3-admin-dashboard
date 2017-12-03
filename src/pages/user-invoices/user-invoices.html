@@ -1,0 +1,41 @@
+<!-- TODO use the same loading animation as other pages, this should be wrapperd in a container like the other pages. Download button needs a loading animation while it requests for the download -->
+
+<ion-content>
+  <main>
+    <section>
+      <div class="aus-title-page">Invoices</div>
+      <div class="pd20">
+        <div class="fs-box">
+          <table class="fs-table default" *ngIf="!invoices?.length">
+            <tr>
+              <td colspan="5">
+                <div class="str tac">
+                  <i class="fa fa-sticky-note-o fa-3x mb20" aria-hidden="true"></i>
+                  <p>No invoices found</p>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table class="fs-table default" *ngIf="invoices?.length">
+            <tr>
+              <th>Date</th>
+              <th>Invoices</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+            <ng-template ngFor let-invoice let-i="index" [ngForOf]="invoices">
+              <tr>
+                <td>{{invoice.date}}</td>
+                <td>{{invoice.id}}</td>
+                <td>{{invoice.submitted}}</td>
+                <td>${{invoice.amount}}</td>
+                <td><a (click)="downloadInvoices(invoice)">Download</a></td>
+              </tr>
+            </ng-template>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+</ion-content>

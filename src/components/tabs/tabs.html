@@ -1,0 +1,12 @@
+<div class="fs-navbar">
+  <ul>
+    <ng-template ngFor let-menu let-i="index" [ngForOf]="menus">
+      <li [class.active]="menu.name == active">
+        <a (click)="emit(menu.component)">
+          <ng-template [ngIf]="menu.icon"><i class="far {{menu.icon}} mr5"></i> </ng-template>
+          {{menu.value}}
+        </a>
+      </li>
+    </ng-template>
+  </ul>
+</div>

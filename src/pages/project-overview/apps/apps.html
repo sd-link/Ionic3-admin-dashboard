@@ -1,0 +1,114 @@
+<!-- TODO
+WATCH /oapi/v1/namespaces/{projectId}/deploymentconfigs?labelSelector=app
+-->
+
+<div class="ptd120 tac" *ngIf="!projectApps.length">
+  <h2 class="reg-24"><!-- TODO this page should automatically redirect to create-app page if empty --></h2>
+  <div class="btn primary" (click)="createApp()">
+    Create App
+  </div>
+</div>
+<div class="pd20" *ngIf="projectApps.length">
+  <div class="fs-box" *ngFor="let app of projectApps">
+    <div class="reg-16" (click)="toAppDetail(app)">
+      <!-- TODO APPAI: This square should be either green, orange or red depending on the app status
+
+      We need to define some logic to get the deployment status:
+
+      There are three `DeploymentConditionType` (ie. .status.conditions.*.type:
+
+      - `Available`
+      - `Progressing`
+      - `ReplicaFailure`
+
+      The application can have 5 different status depending on the above 3 conditions:
+
+      - Available
+      - Rolling Out
+      - Dead
+      - Failed
+      - Stuck
+
+      Only one condition can be met, here are the following rules:
+
+      - Available (green)
+      The minimum replica count is met and there is no rollouts in progress. This is when:
+
+      type: Available, status: "True"
+      type: Progressing, status: "True", Reason: "NewReplicationControllerAvailable"
+
+      - Progressing/Rollingout (spinning icon?)
+      This is when there is a rollout in progress. This is when:
+
+      type: Available, status: "True"
+      type: Progressing, status: "True", Reason: ReplicationControllerUpdated
+
+      - Dead (red)
+
+      This is when there are no active replicas. ie. the rollout has failed and no available rollback was found. This is when:
+
+      type: Available, status: False
+
+      - Failed (warning icon?)
+
+      This is when it failed to rollout but was able to rollback to the previous version:
+
+      type: Available, status: True
+      type: Progressing, status: False
+
+      - Stuck (warning icon?)
+      This is when it has failed to fully rollout all the replicas of a deployment, it will have
+
+      type: ReplicaFailure, status: True
+
+      # LOGIC:
+      if (type.replicationfailure.status = true) {
+        state = stuck
+        timestamp = type.replicationfailure.lastupdatetime
+      } elseif (type.available.status = true) {
+        if (type.progressing.status = true) {
+          if (type.progressing.reason = NewReplicationControllerAvailable) {
+            state = available
+            timestamp = type.progressing.lastupdatetime
+          } elseif (type.progressing.reason = ReplicationControllerUpdated) {
+            state = rolling out
+            timestamp = type.progressing.lastupdatetime
+          }
+        }
+       } elseif (type.progressing.status = false) {
+         state = Failed
+         timestamp = type.progressing.lastupdatetime
+       }
+      } else {
+        state = dead
+        timestamp = type.progressing.lastupdatetime
+      }
+     -->
+      <span class="icn-square-orange mr5"></span>
+      <span class="cursor">{{app.metadata.name}}</span>
+    </div>
+    <div class="row mt10 reg-14">
+      <div class="fs-col-6-sm">
+        <!-- .status.availableReplicas / .status.replicas -->
+        <span>4 web containers</span>
+
+        <!-- disabled for now <span class="ml20">1 worker <label class="ml10 badge grey">1X</label></span>-->
+      </div>
+      <div class="fs-col-6-sm tar">
+        <span class="aus-red"><i class="fa fa-wrench mr5"></i>Deployment STATUS 7 hours ago <!--STATUS and timestamp --></span>
+        <!-- Disabled for now <span><i class="font-icon icon-ruby mr5"></i>Ruby</span>-->
+      </div>
+    </div>
+  </div>
+  <div class="tac mt40">
+    <div class="row">
+      <div class="fs-col-12-sm">
+        <div class="reg-16 tar">
+          <div class="btn primary" (click)="createApp()">
+            Create App
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+// Buttons
+button
+  display: inline-block
+  cursor: pointer
+  &:hover, &:focus
+    outline: none
+.btn
+  display: inline-block
+  padding: 10px 20px
+  min-width: 120px
+  border-radius: 3px
+  border: 0
+  cursor: pointer
+  @extend .muli-18, .tac
+  +transition(all .3s)
+  &.fluid
+    display: block
+    width: 100%
+  &.lg
+    min-width: 200px
+  &.xs
+    min-width: 0
+    padding: 3px 20px
+    @extend .muli-14
+  &.primary
+    background-color: $aus-blue
+    color: $white
+    &:hover,
+    &:focus
+      text-decoration: none
+      background-color: $aus-blue-hover
+  &.secondary
+    background-color: $aus-green
+    color: $white
+    &:hover,
+    &:focus
+      text-decoration: none
+      background-color: $aus-green-hover
+  &.grey
+    background-color: $aus-grey
+    color: $white
+    &:hover,
+    &:focus
+      text-decoration: none
+      background-color: $aus-grey-hover
+  &.white
+    background-color: $white
+    &:hover,
+    &:focus
+      background-color: $aus-white-hover
+  &.no-border
+    border: 0
+    background-color: transparent
+    color: $aus-dark
+    @extend .muli-18
+    &:hover,
+    &:focus
+      color: $aus-grey
+  &.disabled, &.softgrey
+    background-color: $aus-softgrey
+    color: $aus-dark
+    @extend .reg-14
+  &.softgrey
+    &:hover,&:focus
+      background-color: $aus-grey
+      text-decoration: none
+  &.plus, &.minus
+    border: 1px solid $aus-blue
+    min-width: 0
+    width: 45px
+    height: 45px
+    padding: 0
+    background-color: $white
+    color: $aus-blue
+    &:hover,&:focus
+      background-color: $aus-blue
+      color: $white
+  &.radio-button
+    border: 1px solid transparent
+    margin: 0 15px
+    @extend .tac
+
+.btn-toggle-icon
+  display: inline-block !important
+  vertical-align: middle
+  width: 40px
+  height: 25px
+  border-radius: 25px
+  border: 1px solid $aus-softgrey
+  background-color: $aus-softgrey
+  position: relative
+  margin-right: 10px
+  cursor: pointer
+  +transition(all .3s)
+  &:after
+    width: 16px
+    height: 16px
+    border: 1px solid $aus-blue
+    background-color: $aus-blue
+    border-radius: 50%
+    position: absolute
+    top: 4px
+    left: 4px
+    content: ''
+    +transition(all .3s)
+  &.with-text
+    width: 81px
+    line-height: 21px
+    @extend .reg-12, .tac
+    .disable
+      display: inline-block
+      padding: 0 10px 0 25px
+    .active
+      display: none
+      color: $white
+      padding: 0 25px 0 10px
+
+.radio.hide:checked ~ .btn-toggle-icon,
+.checkbox.hide:checked ~ .btn-toggle-icon
+  background-color: $aus-blue
+  border-color: $aus-blue
+  &:after
+    background-color: $aus-softgrey
+    border-color: $aus-softgrey
+    left: auto
+    right: 4px
+  .active
+    display: inline-block
+  .disable
+    display: none

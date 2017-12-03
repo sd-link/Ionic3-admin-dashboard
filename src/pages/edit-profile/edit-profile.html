@@ -1,0 +1,85 @@
+<!-- TODO
+- on page submission there needs to be a loading status and a toast notification on success
+- the labels need to be headers (bold)
+- cancel button not working
+-->
+<ion-content>
+  <main>
+    <div class="aus-title-page">Edit Profile</div>
+    <div class="pd20">
+      <div class="fs-box">
+        <form>
+          <div class="row">
+            <div class="fs-col-6-sm">
+              <h2 class="reg-16">Contact Details</h2>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Name</label>
+                <ion-input name="name" type="text" class="form-text-wrap" [(ngModel)]="userDetail.name"></ion-input>
+              </div>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Email address</label>
+                <ion-input name="email" type="text" class="form-text-wrap" [(ngModel)]="userDetail.email"></ion-input>
+              </div>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Phone</label>
+                <ion-input name="phone" type="text" class="form-text-wrap" [(ngModel)]="userDetail.phone"></ion-input>
+              </div>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Address</label>
+                <ion-input name="address" type="text" class="form-text-wrap" [(ngModel)]="userDetail.address"></ion-input>
+              </div>
+              <!-- <div class="fs-form-group no-padding">
+                <label class="label mb10">Country</label>
+                <div class="fs-select single default">
+                  <select class="form-select">
+                    <option value="Member">Indonesia</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">State</label>
+                <div class="fs-select single default">
+                  <select class="form-select">
+                    <option value="Member">East Java</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">City</label>
+                <div class="fs-select single default">
+                  <select class="form-select">
+                    <option value="Member">Surabaya</option>
+                  </select>
+                </div>
+              </div> -->
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Postcode</label>
+                <ion-input name="zip" type="text" class="form-text-wrap" [(ngModel)]="userDetail.zip"></ion-input>
+              </div>
+              <div class="mt40"></div>
+            </div>
+            <div class="fs-col-6-sm">
+              <h2 class="reg-16">Billing Details <span class="reg-14 optional">(optional)</span></h2>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Company</label>
+                <ion-input name="company" type="text" class="form-text-wrap" [(ngModel)]="userDetail.company"></ion-input>
+              </div>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Tax Details (eg. ABN)</label>
+                <ion-input name="tax_details" type="text" class="form-text-wrap" [(ngModel)]="userDetail.tax_details"></ion-input>
+              </div>
+              <div class="fs-form-group no-padding">
+                <label class="label mb10">Billing Email (Invoice will be sent to this address)</label>
+                <ion-input name="email" type="text" class="form-text-wrap" [(ngModel)]="userDetail.billing_email"></ion-input>
+              </div>
+              <div class="fs-form-group no-padding mt40 tar">
+                <button class="btn no-border" (click)="goBack()">Cancel</button>
+                <button class="btn primary ml10" (click)="proceedRequest()">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</ion-content>

@@ -1,0 +1,543 @@
+// Generals
+body, .scroll-content
+  background-color: $aus-smoothes
+
+// Login-page
+.aus-login
+  display: table
+  width: 100%
+  height: 100vh
+  background-color: $aus-blue-hover
+  padding-left: 0
+  padding-bottom: 0
+  +mobile
+    display: block
+    padding: 60px 0
+  section
+    display: table-cell
+    vertical-align: middle
+    +mobile
+      display: block
+    .fs-box
+      @extend .mt40
+      max-width: 450px
+    .aus-register-link
+      color: $white
+      a
+        color: $white
+
+
+// Aside
+aside
+  width: 290px
+  height: 100%
+  position: fixed
+  top: 0
+  left: 0
+  overflow: auto
+  box-shadow: 0 2px 4px 0 rgba(61,119,180,0.2)
+  background-color: $white
+  padding-bottom: 60px
+  z-index: 99
+  @media(min-width: $xs)
+    &::-webkit-scrollbar
+       width: 3px
+       height: 5px
+    &::-webkit-scrollbar-track
+       background-color: $aus-white-hover
+    &::-webkit-scrollbar-thumb
+       width: 3px
+       background-color: $aus-dark
+  @media(max-width: $sm)
+    width: 100%
+    height: auto
+    padding-bottom: 0
+  header
+    background-color: $aus-blue
+    padding: 15px 20px
+    position: relative
+    div
+      display: inline-block
+      vertical-align: middle
+      &.aus-logo
+        width: 150px
+        @media(max-width: $sm)
+          width: 100%
+          text-align: center
+        .img-fluid
+          height: 30px
+          display: inline-block
+      &.aus-menu
+        width: calc(100% - 155px)
+        right: -10px
+        position: relative
+        color: $white
+        @extend .tar
+        @media(max-width: $sm)
+          position: absolute
+          top: 0
+          left: 20px
+          right: auto
+          width: auto
+          line-height: 56px
+          .fa
+            display: none
+        span
+          cursor: pointer
+          &:first-child
+            width: 25px
+            margin-right: 5px
+            b
+              display: block
+              float: left
+              width: 8px
+              height: 8px
+              line-height: 8px
+              border-radius: 1px
+              margin: 2px
+              background-color: $white
+      &.aus-user
+        display: none
+        position: absolute
+        right: 20px
+        top: 15px
+        .circle
+          width: 30px
+          height: 30px
+        @media(max-width: $sm)
+          display: block
+  .aus-nav-main
+    max-height: 0
+    background-color: $aus-blue
+    padding: 0
+    overflow: hidden
+    a
+      display: block
+      padding: 5px 20px
+      color: $white
+      &:hover, &focus
+        text-decoration: none
+    &.open
+      max-height: 999px
+      padding: 15px 0
+  .aus-navbar
+    a
+      color: $aus-dark
+      display: block
+      padding: 5px 20px 8px
+      &:hover, &:focus, &.active
+        color: $aus-blue
+        text-decoration: none
+      span
+        &.head-icn
+          width: 18px
+          .icn-square,
+          .icn-circle,
+            position: relative
+            top: 2px
+          .icn-line
+            position: relative
+            top: 1px
+        &.head-name
+          width: calc(100% - 24px)
+          padding-left: 5px
+          padding-right: 30px
+          text-overflow: ellipsis
+          white-space: nowrap
+          overflow: hidden
+        &.head-fav
+          .fa
+            position: absolute
+            right: 20px
+            top: calc(50% - 6px)
+            font-size: 14px
+            color: $aus-green
+
+    figure
+      display: block
+      padding: 10px 20px
+      position: relative
+      @media(max-width: $sm)
+        display: none
+      span
+        &.avatar-name
+          width: calc(100% - 65px)
+          padding-left: 10px
+          color: $aus-dark
+          text-overflow: ellipsis
+          white-space: nowrap
+          overflow: hidden
+          @extend .muli-16
+      .aus-toggle
+        position: absolute
+        right: 20px
+        top: calc(50% - 8px)
+        color: $aus-dark
+        padding: 0
+        &:hover, &:focus
+          background-color: transparent
+
+    .aus-nav-user
+      max-height: 0
+      padding-bottom: 0
+      overflow: hidden
+      border-bottom: 1px solid $aus-white-hover
+      &.open
+        max-height: 999px
+        padding-bottom: 15px
+        border-bottom: 1px solid $aus-white-hover
+        padding-top: 20px
+
+    .aus-side-title
+      color: $aus-grey
+      @extend .upper, .reg-12
+
+    nav
+      @media(max-width: $sm)
+        display: none
+      .aus-side-section
+        .aus-side-title
+          padding: 20px 20px 15px
+        .aus-side-head-list
+          position: relative
+          .side-list-child
+            padding-left: 45px
+            padding-right: 20px
+            max-height: 0
+            overflow: hidden
+            a
+              display: block
+              padding: 6px 12px
+              .icn-line
+                opacity: 0
+                visibility: hidden
+                +transition(opacity .3s)
+              &:hover, &:focus
+                background-color: transparent
+                .icn-line
+                  opacity: 1
+                  visibility: visible
+          &.open
+            .side-list-child
+              max-height: 999px
+              a
+                border-radius: 3px
+                &.active, &:hover, &:focus
+                  color: $aus-dark
+                  background-color: $aus-softgrey
+
+// Main
+main
+  padding-left: 290px
+  padding-bottom: 120px
+  @media(max-width: $sm)
+    padding-left: 0
+    padding-top: 60px
+  .aus-search
+    padding: 0 20px
+    position: relative
+    border-bottom: 1px solid $aus-softgrey
+    +mobile
+      background-color: $white
+    .fs-form-group
+      padding: 0
+      margin-bottom: 0
+    .form-text
+      background-color: transparent
+      height: 60px
+      width: 100%
+      border: 0
+      padding: 0 50px 0 40px
+      &::placeholder
+        color: $aus-grey
+    .fa-search
+      font-size: 24px
+      position: absolute
+      line-height: 60px
+    .aus-add-button
+      position: absolute
+      right: 20px
+      top: 10px
+      width: 40px
+      height: 40px
+      background-color: $aus-blue
+      border-radius: 3px
+      border: 0
+      color: $white
+      font-size: 16px
+      line-height: 40px
+      +mobile
+        right: 20px
+      &:hover
+        background-color: $aus-blue-hover
+    .fs-dropdown
+      position: absolute
+      right: 20px
+      top: calc(100% - 10px)
+      min-width: 120px
+      border-radius: 3px
+      box-shadow: 0 2px 4px 0 rgba(61, 119, 180, 0.2)
+      z-index: -99
+      visibility: hidden
+      opacity: 0
+      +transition(all .4s)
+      @extend .fs-white
+      &.open
+        opacity: 1
+        visibility: visible
+        z-index: 99
+      &:after
+        content: ''
+        position: absolute
+        width: 6px
+        height: 0
+        border-top: 6px solid transparent
+        border-left: 6px solid transparent
+        border-right: 6px solid transparent
+        border-bottom: 6px solid $white
+        top: -12px
+        right: calc(20px - 6px)
+        margin: 0 auto
+      li a
+        display: block
+        padding: 6px 15px
+        &:hover, &:focus
+          text-decoration: none
+          @extend .fs-blue, .aus-white
+
+  .aus-title-page
+    background-color: $white
+    border-width: 1px 0
+    border-bottom: 1px solid $aus-white-hover
+    line-height: 20px
+    position: relative
+    @extend .muli-18, .pd20, .tac
+    .link-back
+      position: absolute
+      top: 0
+      left: 20px
+      line-height: 62px
+      @extend .lato, .reg-16
+
+  .aus-list-project
+    padding: 0 20px
+    .list-project-row
+      width: 100%
+      padding: 20px 0
+      border-bottom: 1px solid $aus-white-hover
+      @extend .clearfix
+      a
+        display: block
+        color: $aus-dark
+        &:hover, &:focus
+          text-decoration: none
+      .avatar-project
+        width: 40px
+        float: left
+        padding-top: 5px
+      .name-project
+        width: calc(100% - 40px)
+        float: left
+        @extend .pl10
+
+  .aus-filter
+    .fs-right
+      width: 420px
+      .fs-form-group
+        width: calc(100% - 285px)
+        margin-bottom: 0
+        &:first-child
+          width: 280px
+
+  .aus-grid
+    margin: 0 0 20px
+    label
+      cursor: pointer
+      padding: 20px
+      border-radius: 4px
+      border: 1px solid $aus-softgrey
+      &.active
+        border-color: $aus-blue
+    span
+      width: 80px
+      &:last-child
+        width: calc(100% - 85px)
+        padding-left: 15px
+
+.aus-form-inline
+  width: 100%
+  span
+    width: 60%
+    padding: 5px
+    position: relative
+    &:first-child
+      width: calc(100% - 60% - 50px)
+      padding-left: 0
+    &:last-child
+      width: 40px
+      @extend .tac
+  &>div
+    float: left
+    width: 100%
+    &.move
+      width: calc(100% - 155px)
+      padding-right: 10px
+      .fs-select
+        &.single
+          width: 100%
+          max-width: 100%
+    &.btn-group
+      width: 155px
+      button
+        @extend .reg-16
+        padding: 0 15px
+        line-height: 45px
+
+
+.aus-encrypt-input
+  padding-right: 100px
+
+.aus-encrypt
+  position: absolute
+  top: 4px
+  right: 15px
+  .checkbox
+    margin-top: -1px
+    margin-right: 7px
+  b
+    @extend .lato
+
+.aus-toggle-accordion
+  border-top: 1px solid $aus-white-hover
+  &:last-child
+    border-bottom: 1px solid transparent
+  &.no-border
+    border-top: 1px solid transparent
+  &>.row
+    padding: 15px 35px
+    cursor: pointer
+  .aus-toggle-item
+    padding-left: 80px
+    position: relative
+    max-height: 0
+    overflow: hidden
+    &::after
+      width: 1px
+      height: 100%
+      background-color: $aus-green
+      position: absolute
+      top: 0
+      left: 40px
+      content: ''
+    .item
+      padding: 15px 0
+      border-top: 1px solid $aus-white-hover
+      &:first-child
+        border-top: 0
+  &.active
+    &>.row
+      border-bottom: 1px solid $aus-white-hover
+    .aus-toggle-item
+      max-height: 9999px
+// Canvas
+.canvas-legend
+  +mobile
+    display: inline-block
+    margin: 0 20px 25px 0
+.canvas-legend-green,
+.canvas-legend-blue,
+.canvas-legend-red
+  width: 15px
+  height: 5px
+  vertical-align: middle
+  display: inline-block
+  margin: 5px 5px
+
+.canvas-legend-blue
+  background: $aus-blue
+
+.canvas-legend-green
+  background: $aus-green
+
+.canvas-legend-red
+  background: $aus-red
+
+#chartjs-tooltip
+  background: #FFFFFF
+  box-shadow: 0 2px 4px 0 rgba(60, 119, 179, 0.20)
+  border-radius: 4px
+  font-size: 14px
+  position: absolute
+  font-weight: bold
+  text-align: center
+  line-height: 20px
+  padding: 5px 10px
+
+.chartjs-date
+  font-size: 12px
+  color: #C2C6CB
+
+.aus-title-project
+  @extend .muli-18
+  .icn-square
+    margin: 3px 5px 0 0
+
+.aus-modal
+  position: fixed
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  z-index: -9999
+  background-color: rgba(0,0,0,.4)
+  content: ''
+  opacity: 0
+  visibility: hidden
+  padding-left: 290px
+  +transition(all .5s)
+  +tabletPotrait
+    padding-top: 61px
+    padding-left: 0
+  +mobile
+    padding-top: 61px
+    padding-left: 0
+  .aus-modal-inner
+    display: flex
+    align-items: center
+    width: 100%
+    height: 100vh
+    justify-content: center
+    .aus-modal-dialog
+      display: block
+      padding: 30px
+      width: 600px
+      background-color: $white
+      box-shadow: 0 2px 4px 0 rgba(61,119,180,0.2)
+      +transition(all .5s)
+      +transform(translateY(100px))
+      @media(max-width: $sm)
+        width: 100%
+        height: 100vh
+      .close
+        position: absolute
+        top: 35px
+        right: 30px
+        cursor: pointer
+        z-index: 10
+      .modal-header
+        position: relative
+        z-index: 9
+        h2
+          padding-right: 120px
+      .modal-content
+        .form
+          .fs-select
+            &.with-icon
+              max-width: 100%
+  &.show
+    z-index: 9999
+    opacity: 1
+    visibility: visible
+    .aus-modal-inner
+      .aus-modal-dialog
+        +transform(translateY(0))

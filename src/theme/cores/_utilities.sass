@@ -1,0 +1,63 @@
+// Padding & margin Top and Bottom
+$mg : 0 5 8 10 15 20 25 30 35 40 50 60 70 75 80 85 90 100 120 150 200 230 300 400 500
+=layout($prefix:'')
+  @for $i from 1 through length($mg)
+    .#{$prefix}pd#{nth($mg, $i)}
+      padding: #{nth($mg, $i)}px
+    .#{$prefix}ptd#{nth($mg, $i)}
+      padding-top: #{nth($mg, $i)}px
+      padding-bottom: #{nth($mg, $i)}px
+    .#{$prefix}pt#{nth($mg, $i)}
+      padding-top: #{nth($mg, $i)}px
+    .#{$prefix}pb#{nth($mg, $i)}
+      padding-bottom: #{nth($mg, $i)}px
+    .#{$prefix}plr#{nth($mg, $i)}
+      padding-left: #{nth($mg, $i)}px
+      padding-right: #{nth($mg, $i)}px
+    .#{$prefix}pl#{nth($mg, $i)}
+      padding-left: #{nth($mg, $i)}px
+    .#{$prefix}pr#{nth($mg, $i)}
+      padding-right: #{nth($mg, $i)}px
+    .#{$prefix}m#{nth($mg, $i)}
+      margin: #{nth($mg, $i)}px
+    .#{$prefix}mtb#{nth($mg, $i)}
+      margin-top: #{nth($mg, $i)}px
+      margin-bottom: #{nth($mg, $i)}px
+    .#{$prefix}mlr#{nth($mg, $i)}
+      margin-left: #{nth($mg, $i)}px
+      margin-right: #{nth($mg, $i)}px
+    .#{$prefix}mt#{nth($mg, $i)}
+      margin-top: #{nth($mg, $i)}px
+    .#{$prefix}mb#{nth($mg, $i)}
+      margin-bottom: #{nth($mg, $i)}px
+    .#{$prefix}ml#{nth($mg, $i)}
+      margin-left: #{nth($mg, $i)}px
+    .#{$prefix}mr#{nth($mg, $i)}
+      margin-right: #{nth($mg, $i)}px
+
++layout()
+
+// Text Align
+=align($prefix:'')
+  $ft-initial : c, l, r, j
+  $ft-align   : center, left, right, justify
+  @for $i from 1 through length($ft-initial)
+    .#{$prefix}ta#{nth($ft-initial, $i)}
+      text-align: #{nth($ft-align, $i)}
+  @for $i from 1 through length($ft-initial)
+    .#{$prefix}ta#{nth($ft-initial, $i)}-xs
+      +mobile
+        text-align: #{nth($ft-align, $i)}
++align()
+
+.fs-left
+  float: left
+
+.fs-right
+  float: right
+
+.fs-hide
+  display: none
+
+.pointer
+  cursor: pointer

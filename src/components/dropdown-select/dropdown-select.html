@@ -1,0 +1,6 @@
+<div class="fs-select single with-icon open">
+  <select class="fs-select fluid form-select select2-hidden-accessible" [(ngModel)]="optionSelected" (change)="onClick()"
+    [disabled]="disabled">
+    <option *ngFor="let option of options" [ngValue]="option">{{option.name}}</option>
+  </select>
+</div>

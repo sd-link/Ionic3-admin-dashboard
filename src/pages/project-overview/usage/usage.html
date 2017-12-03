@@ -1,0 +1,51 @@
+<!--
+  TODO
+  - the filter box needs to be fixed
+  - move the full table of namespace usage to subscription page ie. /dashboard/user/usage
+  - only get the usage from the project usage endpoint ie. /dashboard/projects/{project}/usage
+
+  The project usage page should only show the current project usage graphs. If there is no usage it should display a message:
+
+  "No project usage or you are not the billing owner"
+
+-->
+<div class="fs-box">
+  <div class="row aus-filter mb30">
+    <div class="fs-col-4-sm">
+      <h2 class="reg-16">Project Usage</h2>
+    </div>
+    <div class="fs-col-8-sm">
+      <form class="fs-right fs-form-inline tar tal-xs usage-chart-filter">
+        <div class="fs-form-group tal">
+          <div class="fs-select single default">
+            <select class="fs-select default">
+                <option value="May 31, 2017 - July 1, 2017">May 31, 2017 - July 1, 2017</option>
+            </select>
+          </div>
+        </div>
+        <div class="fs-form-group">
+          <button class="btn primary">Filter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="fs-col-12-sm">
+      <canvas id="chart-overview"></canvas>
+    </div>
+  </div>
+  <table class="fs-table default mt30" *ngIf="namespaces.length">
+    <tbody>
+      <tabs [type]="'project'" [active]="'usage'" (onclick)="openPage($event)"></tabs>
+      <tr *ngFor="let namespace of namespaces">
+        <td><a href="#">{{ namespace.name }}</a></td>
+        <td>$ {{ namespace.billable.compute.total | round}}</td>
+        <td>$ {{ namespace.billable.deployment.total | round }}</td>
+        <td>$ {{ namespace.billable.disk.total | round}}</td>
+        <td>$ {{ namespace.total | round}}</td>
+        <td>$ {{ namespace.forecast | round }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

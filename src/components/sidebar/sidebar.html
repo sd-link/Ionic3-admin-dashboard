@@ -1,0 +1,107 @@
+<aside>
+  <header>
+    <div (click)="navigate('Home')" class="aus-logo">
+      <img src="assets/images/logo-ausnimbus.svg" class="img-fluid">
+    </div>
+    <div class="aus-menu" (click)="navigate('Home')">
+      <span>
+        <b></b>
+        <b></b>
+        <b></b>
+        <b></b>
+      </span>
+      <span><i class="fa fa-angle-down"></i></span>
+    </div>
+    <div class="aus-user aus-toggle" (click)="openNavUser = !openNavUser">
+      <span class="img-avatar circle">
+        <span class="img-initial circle">{{user?.initial}}</span>
+      </span>
+    </div>
+  </header>
+
+  <div class="aus-navbar">
+    <figure (click)="openNavUser = !openNavUser">
+      <span class="img-initial circle">{{user?.initial}}</span>
+      <span class="avatar-name">
+            {{user?.email}}
+          </span>
+      <a href="#" class="aus-toggle">
+            <i class="fa fa-angle-down"></i>
+          </a>
+    </figure>
+
+    <div class="aus-nav-user" [class.open]="openNavUser">
+      <ul>
+        <li><a (click)="navigate('EditProfilePage')">
+              <span class="head-icn">
+                <i class="fa fa-cog"></i>
+              </span>
+              <span class="head-name">Edit profile</span>
+            </a></li>
+        <li><a href="#">
+              <span class="head-icn"><i class="fa fa-file-alt"></i></span>
+              <span class="head-name">Invoices</span>
+            </a></li>
+        <li><a href="#">
+              <span class="head-icn"><i class="fa fa-credit-card"></i></span>
+              <span class="head-name">Payment method</span>
+            </a></li>
+        <li><a href="#">
+              <span class="head-icn"><i class="fa fa-rss"></i></span>
+              <span class="head-name">Subsription</span>
+            </a></li>
+        <li><a href="#">
+              <span class="head-icn"><i class="fa fa-lock"></i></span>
+              <span class="head-name">Change password</span>
+            </a></li>
+        <li><a (click)="onLogout()">
+              <span class="head-icn"><i class="fa fa-sign-out"></i></span>
+              <span class="head-name">Log out</span>
+            </a></li>
+      </ul>
+    </div>
+
+    <nav>
+      <!-- Need api for favorites apps -->
+      <!-- <div class="aus-side-section">
+        <div class="aus-side-title">Favorites</div>
+        <div class="aus-side-head-list">
+          <a href="#">
+                <span class="head-icn"><b class="icn-square"></b></span>
+                <span class="head-name">aus-widget</span>
+                <span class="head-fav"><i class="fa fa-star"></i></span>
+              </a>
+        </div>
+      </div> -->
+
+      <div class="aus-side-section accordion">
+        <div class="aus-side-title">Projects</div>
+        <ng-template ngFor let-project let-i="index" [ngForOf]="projects">
+          <div class="aus-side-head-list" [class.open]="open[i]" (click)="open[i]=!open[i]">
+              <a href="#">
+                <span class="head-icn"><b class="icn-circle"></b></span>
+                <span class="head-name">{{ project.name }}</span>
+              </a>
+              <ul class="side-list-child">
+                <li>
+                  <a href="#">Apps</a>
+                </li>
+                <li>
+                  <a href="#">Access</a>
+                </li>
+                <li>
+                  <a href="#">Resources</a>
+                </li>
+                <li>
+                  <a href="#">Settings</a>
+                </li>
+                <li>
+                  <a href="#">Usage</a>
+                </li>
+              </ul>
+          </div>
+        </ng-template>
+      </div>
+    </nav>
+  </div>
+</aside>

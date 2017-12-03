@@ -1,0 +1,32 @@
+<!-- TODO ERWIN
+- this page should probably be wrapped in a container like the other settings pages
+- the project name edit and delete project are not working
+- the delete confirmation should be a modal
+-->
+
+<form class="form-with-border mt30">
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Project display name</label>
+        </div>
+        <div class="fs-col-6-sm">
+            <input type="text" class="form-text" name="project-name" [(ngModel)]="project.displayName">
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Delete project</label>
+        </div>
+        <div class="fs-col-6-sm">
+            <div class="reg-16 mb10">This will delete all resources associated with the project ausnimbus-project and cannot be undone. Make sure
+                this is something you really want to do!.
+            </div>
+            <button ion-button color="danger" (click)="confirmDeleteModal()" outline>Delete project</button>
+        </div>
+    </div>
+    <div class="mt40 plr20 tar">
+        <button-action [loadingText]="'Saving...'" [state]="loading" (submit)="submitData()">
+          Save
+        </button-action>
+    </div>
+</form>

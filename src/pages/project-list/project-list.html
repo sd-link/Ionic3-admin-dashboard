@@ -1,0 +1,32 @@
+<ion-content>
+  <main>
+    <section>
+      <aus-search></aus-search>
+      <div class="aus-list-project" *ngIf="projects.length">
+        <div class="list-project-row" *ngFor="let project of projects">
+          <a (click)="goToDetail(project.name)">
+            <div class="avatar-project">
+              <span class="img-initial circle">{{ project.initial }}</span>
+            </div>
+            <div class="name-project">
+              <h3 class="muli-18 mb0">{{ project.displayName }}</h3>
+              <p>{{ project.name }}</p>
+              <div class="row mt20" *ngIf="project.description">
+                <div class="fs-col-10-sm">
+                  <p>{{ project.description }}</p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!-- TODO if there are no projects it should redirect to create project page automatically -->
+      <div class="ptd120 tac" *ngIf="!projects.length">
+        <h2 class="muli-24">You dont have any project</h2>
+        <p class="mb20">All project will visible here</p>
+        <a href="#" class="btn primary" (click)="createProject()">Create new project</a>
+      </div>
+    </section>
+  </main>
+
+</ion-content>

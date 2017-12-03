@@ -1,0 +1,33 @@
+<!--
+  Generated template for the ModalConfirmDeletePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>Confirm delete</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item no-lines text-wrap>
+    <p>
+      Are you sure you want to delete the project '{{project.id}}'?
+    </p>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-input [(ngModel)]="project.confirm" placeholder="Type the name of the project to confirm."></ion-input>
+  </ion-item>
+  <ion-item no-lines>
+    <div class="tar mt10">
+      <button class="btn no-border" (click)="dismiss()">Cancel</button>
+      <button class="btn danger" (click)="submitForm()" [disabled]="project?.confirm != project?.id">Delete</button>
+    </div>
+  </ion-item>
+</ion-content>

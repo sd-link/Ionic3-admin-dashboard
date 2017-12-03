@@ -1,0 +1,97 @@
+<aside *ngIf="authenticated">
+    <header>
+        <div (click)="navigateHome()" class="aus-logo">
+            <img src="assets/images/logo-ausnimbus.svg" class="img-fluid">
+        </div>
+        <div class="aus-menu" (click)="navigateHome()">
+            <span>
+              <b></b>
+              <b></b>
+              <b></b>
+              <b></b>
+            </span>
+        </div>
+        <div class="aus-user aus-toggle" (click)="openNavUser = !openNavUser" *ngIf="user.initial">
+            <span class="img-avatar circle">
+              <span class="img-initial circle">{{user?.initial}}</span>
+            </span>
+        </div>
+    </header>
+
+    <div class="aus-navbar">
+        <figure (click)="openNavUser = !openNavUser">
+            <span class="img-initial circle">{{user?.initial}}</span>
+            <span class="avatar-name">
+            {{user?.email}}
+          </span>
+            <a href="#" class="aus-toggle">
+            <i class="fa fa-angle-down"></i>
+          </a>
+        </figure>
+
+        <div class="aus-nav-user" [class.open]="openNavUser">
+            <ul>
+                <li *ngFor="let p of pages">
+                    <a (click)="navigate(p.component)">
+                    <span class="head-icn"><i class="far {{p.ico}}"></i></span>
+                    <span class="head-name">{{p.title}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="onLogout()">
+                    <span class="head-icn"><i class="far fa-sign-out"></i></span>
+                    <span class="head-name">Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <nav>
+            <!-- Need api for favorites apps  -->
+            <!-- <div class="aus-side-section">
+                <div class="aus-side-title">Favorites</div>
+                <div class="aus-side-head-list">
+                    <a href="#">
+                <span class="head-icn"><b class="icn-square"></b></span>
+                <span class="head-name">aus-widget</span>
+                <span class="head-fav"><i class="fa fa-star"></i></span>
+              </a>
+                </div>
+            </div> -->
+
+            <div class="aus-side-section accordion" *ngIf="projects?.length">
+                <div class="aus-side-title">Projects</div>
+                <ng-template ngFor let-project let-i="index" [ngForOf]="projects">
+                    <div class="aus-side-head-list" [class.open]="isOpen(project.name)">
+                        <a (click)="goToDetail(project.name)">
+                            <span class="head-icn"><b class="icn-circle"></b></span>
+                            <span class="head-name">
+                                {{ project.name }}
+                                <ng-template *ngIf="project?.status?.phase == 'Terminating'">Deleting</ng-template>
+                            </span>
+                        </a>
+                        <ul class="side-list-child">
+                            <li>
+                                <a href="#">Apps</a>
+                            </li>
+                            <li>
+                                <a href="#">Access</a>
+                            </li>
+                            <li>
+                                <a href="#">Resources</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings</a>
+                            </li>
+                            <li>
+                                <a href="#">Usage</a>
+                            </li>
+                        </ul>
+                    </div>
+                </ng-template>
+            </div>
+        </nav>
+    </div>
+</aside>
+
+<ion-nav [root]="rootPage" swipeBackEnabled="true"></ion-nav>

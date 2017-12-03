@@ -1,0 +1,185 @@
+<!-- We need "Info" section
+
+eg. https://slack-files.com/T21KV1XBP-F6SDPGF4H-561f593d19
+
+
+Info: App Name
+      Image Size:
+      Webhook URL:
+
+
+Builder section:
+
+(all comes from buildconfig -> spec.strategy.sourceStrategy.from):
+
+      Framework: from.name
+      Vendor: from.namespace
+      Version: from.name
+      Builder Resources: .spec.resources.limits.memory
+      Automatic Update: .spec.triggers.imageChange
+
+      (if this is defined then automatic update is enabled)
+      - imageChange:
+        type: ImageChange
+
+      Definition: Automatically rebuild your application when the vendor publishes a new builder version
+-->
+
+<!-- TODO (copied from app-recreate-settings)
+
+Domains should be implemented as a table:
+
+Domain name   DNS Target (?)  SSL Status  delete
+
+eg.
+example.com anapp.cloud <a href="#edit">ACM</a> Delete
+
+eg but not exact copy https://slack-files.com/T21KV1XBP-F6SSQC69H-6759ed092e
+
+
+The configure SSL button should be a modal:
+https://newiteration.slack.com/files/andrewklau/F6Q7C0740/screenshot_from_2017-08-19_20-00-30.png
+
+- Automatic Certificate Manager
+  AusNimbus will automatically provision and manage the reneal of your SSL certificates using Let's Encrypt
+
+  [Next]
+  Redirect to https (yes or no)
+
+- Manual
+  Upload your own purchased certificate.
+
+  [Next]
+  Manual will present three text areas for Certificate, Certificate Authority and Private Key
+
+  [Next]
+  Redirect to https (yes or no)
+
+When click on ACM or Manual from the table (ie. the edit button):
+https://newiteration.slack.com/files/andrewklau/F6QSGFU74/screenshot_from_2017-08-19_20-05-58.png
+
+The table can also be left empty and their default appname-project.anapp.cloud will be shown
+
+-->
+
+<form class="form-with-border mt30">
+    <div class="fs-form-group row ">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Domain Name</label>
+        </div>
+        <div class="fs-col-8-sm">
+            <div class="row">
+                <div class="fs-col-8">
+                    <input type="text" class="form-text" placeholder="Eg. https://github.com/ausnimbus/node-ex.git" />
+                </div>
+                <div class="fs-col-4">subdomain.com</div>
+            </div>
+            <div class="mb10 mt15">
+                <label class="fs-con-label mb0">
+                  <input type="checkbox" name="a" class="checkbox" checked/>
+                  Redirect to https
+                </label>
+            </div>
+            <div class="mb10">
+                <label class="fs-con-label mb0">
+                  <input type="checkbox" name="a" class="checkbox" checked/>
+                  Automatic certificate manager  <i class="fa fa-info-circle ml5"></i>
+                </label>
+            </div>
+            <div class="mb10">
+                <label class="fs-con-label mb0">
+                  <input type="checkbox" name="a" class="checkbox"/>
+                  Upload own SSL cert
+                </label>
+            </div>
+            <div class="mt20">
+                <a href="#"><i class="fa fa-plus mr10"></i>Add another domain name</a>
+            </div>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Environment Variables</label>
+            <p class="reg-16">Config vars change the way your app behaves. In addition to creating your own, some add-ons come with their own.</p>
+        </div>
+        <div class="fs-col-8-sm">
+            <div class="row mb10">
+                <div class="fs-col-4-sm">
+                    Config Vars
+                </div>
+                <div class="fs-col-8-sm tar">
+                    <button class="btn xs no-border">Cancel</button>
+                    <button class="btn xs primary">Save</button>
+                </div>
+            </div>
+            <div class="aus-form-inline">
+                <span>
+                  <input type="text" class="form-text" value="DATABASE_HOST"/>
+                </span>
+                <span>
+                  <input type="text" class="form-text" value="db_host"/>
+                  <label class="aus-encrypt"><input type="checkbox" class="checkbox"/><b class="reg-14 aus-grey">Encrypt</b></label>
+                </span>
+                <span>
+                  <i class="fa fa-minus-circle aus-red"></i>
+                </span>
+            </div>
+            <div class="aus-form-inline">
+                <span>
+                  <input type="text" class="form-text" value="DATABASE_NAME"/>
+                </span>
+                <span>
+                  <input type="password" class="form-text" value="db_host"/>
+                  <label class="aus-encrypt"><input type="checkbox" class="checkbox"/><b class="reg-14 aus-grey">Encrypt</b></label>
+                </span>
+                <span>
+                  <i class="fa fa-minus-circle aus-red"></i>
+                </span>
+            </div>
+            <div class="aus-form-inline">
+                <span>
+                  <input type="text" class="form-text"/>
+                </span>
+                <span>
+                  <input type="password" class="form-text"/>
+                  <label class="aus-encrypt"><input type="checkbox" class="checkbox"/><b class="reg-14 aus-grey">Encrypt</b></label>
+                </span>
+                <span>
+                  <i class="fa fa-plus-circle aus-green"></i>
+                </span>
+            </div>
+            <div><a href="#" class="aus-grey"><i class="fa fa-lock mr5"></i>Lock Environment</a></div>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Rollouts</label>
+        </div>
+        <div class="fs-col-6-sm">
+            <select class="fs-select">
+              <option value="Rolling">Rolling</option>
+            </select>
+            <p class="mt15">A rollout is a staged series of activities that often accumulate meaning as they occur. <a href="#">Learn more</a></p>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Continuious</label>
+        </div>
+        <div class="fs-col-6-sm">
+            <div class="fs-select single default">
+                <select class="form-select">
+                  <option value="Continuious Deployment">Continuious Deployment</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <label class="l-label">Health Checks</label>
+        </div>
+        <div class="fs-col-5-sm">
+            <input type="text" class="form-text" placeholder="Configure endpoint (ie. /health)" />
+        </div>
+    </div>
+</form>

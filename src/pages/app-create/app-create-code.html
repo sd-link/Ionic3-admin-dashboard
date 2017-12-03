@@ -1,0 +1,140 @@
+<form class="form-with-border mt30">
+  <div class="fs-form-group tac">
+    <span>
+      <!-- TODO ERWIN see the earlier image I sent with big code selector boxes. Title, subtitle and logo -->
+      <input id="git" type="radio" name="git" class="hide radio" [(ngModel)]="codeData.repoSource" [value]="'generic'"/>
+      <label for="git" class="btn radio-button mb0">
+        <!--    Git
+        fa-git  Generic git repository -->
+        <i class="fab fa-git mr10"></i> Git
+      </label>
+    </span>
+    <span>
+      <input id="github" type="radio" name="git" class="hide radio" [(ngModel)]="codeData.repoSource" [value]="'github'"/>
+      <label for="github" class="btn radio-button mb0">
+        <!--    GitHub
+        fa-github  Connect GitHub repository -->
+        <i class="fab fa-github mr10"></i> GitHub
+      </label>
+    </span>
+    <span>
+      <input id="gitlab" type="radio" name="git" class="hide radio" [(ngModel)]="codeData.repoSource" [value]="'gitlab'"/>
+      <label for="gitlab" class="btn radio-button mb0">
+        <!--    Gitlab
+        fa-gitlab  Connect GitLab repository -->
+        <i class="fab fa-gitlab mr10"></i> GitLab
+      </label>
+    </span>
+    <span>
+      <input id="bitbucket" type="radio" name="git" class="hide radio" [(ngModel)]="codeData.repoSource" [value]="'bitbucket'"/>
+      <label for="bitbucket" class="btn radio-button mb0">
+        <!--    Bitbucket
+        fa-bitbucket  Connect Bitbucket repository -->
+        <i class="fab fa-bitbucket mr10"></i> Bitbucket
+      </label>
+    </span>
+
+<!-- Disabled for now
+    <span>
+      <input id="jenkins" type="radio" name="git" class="hide radio" [(ngModel)]="codeData.repoSource" [value]="'jenkins'"/>
+      <label for="jenkins" class="btn radio-button mb0">
+        <i class="fab fa-jenkins mr10"></i> Jenkins
+      </label>
+    </span>
+-->
+  </div>
+
+  <div class="fs-form-group row no-border" [class.error]="errors?.url">
+    <div class="fs-col-4-sm">
+      <label class="l-label">Git Repository URL</label>
+    </div>
+    <div class="fs-col-8-sm">
+      <!-- TODO erwin all these input boxes need to have a small padding-top -->
+      <input type="text" class="form-text mb5" name="url" [(ngModel)]="codeData.url"/>
+      <div class="reg-14">
+        <a (click)="useSampleUrl(dataConfigForm?.version.annotations.sampleRepo)">
+          Try the example repository for {{dataConfigForm?.version.lang}} <i class="fa fa-level-up ml5" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="error-label" *ngIf="errors?.url">
+        {{errors?.url}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="fs-col-1-xs">
+    </div>
+    <div class="fs-col-10-xs">
+      <label for="checkGit"><input type="checkbox"  id="checkGit" (click)="showGitAuth($event)" >&nbsp;&nbsp;Git repository requires credentials </label>
+      <loading-spinner *ngIf="userSecretsLoading"></loading-spinner>
+    </div>
+  </div>
+  
+  <!-- TODO ERWIN & APPAI: use the inline loading when querying the list of secrets. Git credentials should only show the dropdown boxes items when the secret "type" is:
+
+kubernetes.io/ssh-auth
+kubernetes.io/basic-auth
+
+ -->
+ 
+   <div class="fs-form-group row"  [hidden]="!finishedSecretloading||checkedSecret">
+    <div class="fs-col-4-sm">
+      <h3 class="muli-18 mb10">Git Credentials (optional)</h3>
+      <div class="reg-16">Private repositories require credentials for pulling your source code.</div>
+    </div>
+    <div class="fs-col-6-sm">
+      <select class="fs-select default" name="lang" [(ngModel)]="codeData.secretIndex" (ngModelChange)="changeSecrets($event)">
+        <option value="-" selected></option>
+        <ng-template ngFor let-secret let-i="index" [ngForOf]="userSecrets">
+          <option value="{{i}}">{{secret.metadata.name}}</option>
+        </ng-template>
+      </select>
+      <label class="reg-14 mt10">
+        <a (click)="createSecretToggle()">
+          Create new secret
+        </a>
+      </label>
+
+      <div class="aus-modal" *ngIf="toggleCreateSecret">
+        <div class="aus-modal-table">
+          <div class="aus-modal-position">
+            <div class="aus-modal-box">
+              <div class="row">
+                <div class="fs-col-9-xs">
+                  <h2 class="aus-blue muli-18">Create new secret</h2>
+                </div>
+                <div class="fs-col-3-xs tar">
+                  <a class="muli-18 btn-close" (click)="createSecretToggle()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+              <!-- TODO ERWIN we need to style this modal better, it also needs to support the option of adding a SSH key instead of username/password auth -->
+              <input type="text" class="form-text mb10" placeholder="Username" name="secretu" [(ngModel)]="codeData.secretForm.username">
+              <input type="password" class="form-text mb10" placeholder="Password" name="secretp" [(ngModel)]="codeData.secretForm.password">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fs-form-group row" [class.error]="errors?.branch">
+    <div class="fs-col-4-sm">
+      <h3 class="muli-18 mb10">Git Context</h3>
+      <div class="reg-16">Builds the current state of a git reference to this app.</div>
+    </div>
+    <div class="fs-col-6-sm">
+      <div class="reg-16 mb10">Build request will pull the current state of the git reference you specify below. <a href="#">Learn more</a></div>
+      <input type="text" class="form-text" name="deployBranch" [(ngModel)]="codeData.branch">
+      <div class="reg-14 mt10" *ngIf="errors?.branch">
+        {{errors?.branch}}
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed-button-step">
+    <button class="btn no-border" (click)="toPrevStep()">Back</button>
+    <button class="btn primary" (click)="submitForm()">Next</button>
+  </div>
+</form>

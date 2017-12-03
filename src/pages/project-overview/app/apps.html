@@ -1,0 +1,36 @@
+<div class="ptd120 tac" *ngIf="!projectApps.length">
+  <h2 class="reg-24"><!-- TODO ERWIN: this page should automatically redirect to create-app page --></h2>
+  <div class="btn primary" (click)="createApp()">
+    Create App
+  </div>
+</div>
+<div class="pd20" *ngIf="projectApps.length">
+  <div class="fs-box" *ngFor="let app of projectApps">
+    <div class="reg-16" (click)="toAppDetail(app)">
+      <!-- TODO APPAI: This square should be either green, orange or red depending on the app status -->
+      <span class="icn-square-orange mr5"></span>
+      <span class="cursor">{{app.metadata.name}}</span>
+    </div>
+    <div class="row mt10 reg-14">
+      <div class="fs-col-6-sm">
+        <span>4 web containers</span>
+        <span class="ml20">1 worker <label class="ml10 badge grey">1X</label></span>
+      </div>
+      <div class="fs-col-6-sm tar">
+        <span class="aus-red mr20"><i class="fa fa-wrench mr5"></i>Build failed 7 hours ago</span>
+        <span><i class="font-icon icon-ruby mr5"></i>Ruby</span>
+      </div>
+    </div>
+  </div>
+  <div class="tac mt40">
+    <div class="row">
+      <div class="fs-col-12-sm">
+        <div class="reg-16 tar">
+          <div class="btn primary" (click)="createApp()">
+            Create App
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

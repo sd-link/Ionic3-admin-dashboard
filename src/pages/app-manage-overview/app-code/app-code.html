@@ -1,0 +1,137 @@
+<form class="form-with-border mt30">
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">Connected to GitHub <i class="fa fa-check-circle aus-green ml10 rel"></i></h3>
+            <p class="reg-16">Code diffs. manual and auto deploys are available for this a..</p>
+        </div>
+        <div class="fs-col-6-sm">
+            <h3 class="reg-16 mb10">Connected Repository</h3>
+            <p><img src="assets/images/git.svg" class="mr10" width="15" />appai/acme-app <button class="btn softgrey xs ml20">Edit</button></p>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">Automatic Builds</h3>
+            <p class="reg-16">Enables the choosen context to be automatically built on every `git push`</p>
+        </div>
+        <div class="fs-col-6-sm">
+            <input type="text" class="form-text mb5" value="https://github.com/john/aus-widget-apps.git" disabled/>
+            <a href="#" class="reg-16"><i class="fal fa-file-alt mr5"></i>Click to copy url</a>
+            <p class="reg-16 mt10">Every push to  master will deploy a new version of this app. Ensure the web hook url above is properly configured
+                in your repository. <a href="#">Learn more</a></p>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">Git Reference</h3>
+            <p class="reg-16">Deploy the current state of a branch to this app.</p>
+        </div>
+        <div class="fs-col-6-sm">
+            <input type="text" class="form-text mb15" value="branch/tag/" />
+            <p class="reg-16">This will deploy the current state of the branch you specify below. <a href="#">Learn more</a></p>
+            <select class="fs-select mt15">
+              <option value="Master">Master</option>
+            </select>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+        <div class="fs-col-4-sm">
+            <h3 class="muli-18 mb10">Incremental Builds</h3>
+            <p class="reg-16">Cache dependencies between build (note not supported by all builders)</p>
+        </div>
+        <div class="fs-col-6-sm">
+            <label class="fs-con-label mb0">
+                <input type="checkbox" name="a" class="checkbox"/>
+                Incremental builds
+              </label>
+        </div>
+    </div>
+    <div class="fs-form-group row">
+      <div class="fs-col-12-xs">
+        <h3 class="muli-18 mb10">Version History</h3>
+      </div>
+    </div>
+    <div class="aus-accordion">
+        <div class="aus-toggle-accordion no-border active">
+            <div class="row no-gutter">
+                <div class="fs-col-6">
+                    <i class="fa fa-caret-down aus-green mr30"></i> Build #3 <label class="badge green reg-12 ml20">Complete</label></div>
+                <div class="fs-col-6 tar">
+                    &nbsp;<label class="badge grey reg-12 ml20"><i class="fa fa-refresh fa-spin reg-12 mr5"></i> Running</label>
+                </div>
+            </div>
+            <div class="aus-toggle-item reg-16">
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Commit Message</div>
+                    <div class="fs-col-8-sm">Merge pull request #61 from feature/metadate (as2jp91)</div>
+                </div>
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Source</div>
+                    <div class="fs-col-8-sm">
+                        https://github.com/master (don't need to show contextdir)
+                    </div>
+                </div>
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Reason</div>
+                    <div class="fs-col-8-sm">Manually triggered</div>
+                </div>
+            </div>
+        </div>
+        <div class="aus-toggle-accordion">
+            <div class="row no-gutter">
+                <div class="fs-col-6">
+                    <i class="fa fa-caret-down aus-green mr30"></i> Build #2 <label class="badge green reg-12 ml20">Complete</label>
+                </div>
+                <div class="fs-col-6 tar">
+                    <label class="badge grey reg-12 ml20"><i class="fa fa-undo mr10"></i>Rollback</label>
+                </div>
+            </div>
+            <div class="aus-toggle-item reg-16">
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Commit Message</div>
+                    <div class="fs-col-8-sm">Commit: as2jp91 - Merge pull request #61 from feature/metadatae</div>
+                </div>
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Source Code</div>
+                    <div class="fs-col-8-sm">
+                        <a href="#">https://github.com/john/aus-widget-apps.git</a>
+                        <p>Ref: master</p>
+                        <p>Context: dir :/</p>
+                    </div>
+                </div>
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Reason</div>
+                    <div class="fs-col-8-sm">Manually triggered</div>
+                </div>
+            </div>
+        </div>
+        <div class="aus-toggle-accordion">
+            <div class="row no-gutter">
+                <div class="fs-col-6">
+                    <i class="fa fa-caret-down aus-green mr30"></i> Build #2 <label class="badge green reg-12 ml20">Complete</label>
+                </div>
+                <div class="fs-col-6 tar">
+                    <label class="badge grey reg-12 ml20"><i class="fa fa-undo mr10"></i>Rollback</label>
+                </div>
+            </div>
+            <div class="aus-toggle-item reg-16">
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Commit Message</div>
+                    <div class="fs-col-8-sm">Commit: as2jp91 - Merge pull request #61 from feature/metadatae</div>
+                </div>
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Source Code</div>
+                    <div class="fs-col-8-sm">
+                        <a href="#">https://github.com/john/aus-widget-apps.git</a>
+                        <p>Ref: master</p>
+                        <p>Context: dir :/</p>
+                    </div>
+                </div>
+                <div class="item row no-gutter">
+                    <div class="fs-col-4-sm">Reason</div>
+                    <div class="fs-col-8-sm">Manually triggered</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

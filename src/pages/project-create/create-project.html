@@ -1,0 +1,34 @@
+<!-- TODO
+- on successful project creation it should redirect to that page view, the list of project cache needs to also be updated
+-->
+<ion-content>
+  <main>
+    <div class="aus-title-page">Create Project</div>
+    <div class="pd20">
+      <div class="fs-box">
+        <form>
+          <!-- add class active if project name available -->
+          <div class="fs-form-group no-padding">
+            <div class="row">
+              <div class="fs-col-4-sm">
+                <label class="l-label muli-16">Project Name:</label>
+              </div>
+              <div class="fs-col-8-sm">
+                <input type="text" class="form-text" name="name" [(ngModel)]="projectRequest.name">
+                <!-- show the icon if project name available -->
+                <!-- <i class="fas fa-check-circle"></i> -->
+                <!-- show the label if project name available -->
+                <!-- <div class="error-label small">aus-widget is available</div> -->
+              </div>
+            </div>
+          </div>
+          <div class="mt40 tar">
+            <button class="btn lg primary" (click)="proceedRequest()">Create Project</button>
+            <!-- TODO ERWIN remove this info purposes
+            <div class="mt10 reg-14"><a href="#" class="aus-dark">info purposes</a></div> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</ion-content>

@@ -1,0 +1,6 @@
+<button class="btn primary" *ngIf="!state" (click)="submitData()">
+  <ng-content></ng-content>
+</button>
+<button class="btn primary disabled" *ngIf="state" (click)="submitData()" disabled>
+  {{loadingText}}
+</button>

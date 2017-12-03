@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>code</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Component" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="onboarding-step" transform="translate(-300.000000, -15.000000)" fill-rule="nonzero" fill="#000000">
+            <g id="step" transform="translate(102.000000, 15.000000)">
+                <g id="2" transform="translate(198.000000, 0.000000)">
+                    <g id="code">
+                        <g id="Layer_1">
+                            <path d="M0,8.31024931e-05 L0,29.9443213 L29.9442382,29.9443213 L29.9443213,8.31024931e-05 L0,8.31024931e-05 Z M29.0847091,29.0847091 L0.859529086,29.0847091 L0.859529086,0.859695291 L29.0847091,0.859695291 L29.0847091,29.0847091 Z" id="Shape"></path>
+                            <rect id="Rectangle-path" x="0.429806094" y="5.05811634" width="29.0842105" height="0.859529086"></rect>
+                            <rect id="Rectangle-path" x="26.3534626" y="2.52930748" width="1.26457064" height="0.859529086"></rect>
+                            <rect id="Rectangle-path" x="23.8238227" y="2.52930748" width="1.26448753" height="0.859529086"></rect>
+                            <rect id="Rectangle-path" x="21.2950139" y="2.52930748" width="1.26448753" height="0.859529086"></rect>
+                            <rect id="Rectangle-path" x="2.95903047" y="2.52930748" width="15.1745152" height="0.859529086"></rect>
+                            <polygon id="Shape" points="19.5594737 13.0621607 18.951662 13.6699723 21.8934903 16.6117175 18.951662 19.5534626 19.5594737 20.1613573 23.1090305 16.6117175"></polygon>
+                            <polygon id="Shape" points="12.1407479 13.6699723 11.5329363 13.0621607 7.9832964 16.6117175 11.5329363 20.1613573 12.1407479 19.5534626 9.19891967 16.6117175"></polygon>
+                            <rect id="Rectangle-path" transform="translate(15.312553, 17.074979) rotate(-67.746396) translate(-15.312553, -17.074979) " x="9.80220952" y="16.6452218" width="11.0206877" height="0.859513588"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

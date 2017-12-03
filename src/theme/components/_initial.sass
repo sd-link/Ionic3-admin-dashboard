@@ -1,0 +1,215 @@
+.fs-box
+  @extend .pd30
+  margin: 0 auto 20px
+  background-color: $white
+  box-shadow: 0 2px 4px 0 rgba(61,119,180,0.2)
+  &-border
+    @extend .fs-box
+    padding: 10px 20px
+    box-shadow: none
+    border: 1px solid $aus-softgrey
+    border-radius: 4px
+    &.dark
+      border-color: $aus-grey
+  .offset-30
+    margin: 0 -30px
+    +mobile
+      margin: 0 -20px
+  +mobile
+    padding: 30px 20px
+  &.blue
+    background-color: $aus-blue
+    color: $white
+    border-radius: 5px
+    border: 1px solid $aus-blue
+  &.br-blue
+    border: 1px solid $aus-blue
+    border-radius: 5px
+  &.sm
+    padding: 15px
+  &.no-shadow
+    box-shadow: none
+  .fs-box-title
+    span
+      width: 40px
+      &:first-child
+        width: calc(100% - 45px)
+
+// Icon
+.icn-square
+  display: inline-block
+  height: 12px
+  width: 12px
+  border: 2px solid $aus-grey
+  border-radius: 2px
+  background-color: $aus-grey
+  &.fs-blue
+    border-color: $aus-blue
+  &-green
+    @extend .icn-square, .fs-green
+    border-color: $aus-green
+  &-red
+    @extend .icn-square, .fs-red
+    border-color: $aus-red
+  &-orange
+    @extend .icn-square, .fs-orange
+    border-color: $aus-orange
+.icn-circle
+  display: inline-block
+  height: 12px
+  width: 12px
+  border: 2px solid $aus-grey
+  border-radius: 50%
+  background-color: $white
+.icn-line
+  display: inline-block
+  width: 12px
+  height: 3px
+  background-color: $aus-blue
+.icn-lang
+  width: 80px
+  height: 80px
+  @extend .str-72
+
+// optional
+.optional
+  color: $aus-grey
+
+.fs-notif
+  border-radius: 3px
+  padding: 12px 20px
+  border: 1px solid
+  border-radius: 0
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 99
+  &.rel
+    position: relative
+  .btn-close-notif
+    position: absolute
+    top: calc(50% - 7px)
+    right: 30px
+    height: 100%
+    @extend .aus-white
+  &.warning
+    background-color: #F6F09F
+    border-color: #C1BB74
+  &.error
+    background-color: #FFCACA
+    border-color: #FFA4A4
+  &.trial
+    background: $black
+    color: $white
+    border-color: transparent
+    @extend .reg-14
+    .btn
+      padding: 5px 30px
+      margin-left: 10px
+      @extend .reg-14
+  &.grey
+    background-color: $aus-softgrey
+    border-color: transparent
+    p
+      margin-bottom: 0
+    ul
+      margin: 0 0 5px
+      padding: 0
+      list-style: none
+      li
+        margin-bottom: 0
+        padding-left: 25px
+        position: relative
+        &:after
+          position: absolute
+          left: 10px
+          top: 0
+          content: '-'
+
+// badge
+.badge
+  padding: 2px 6px
+  border-radius: 3px
+  font-size: 12px !important
+  line-height: normal !important
+  display: inline-block !important
+  &.grey
+    @extend .fs-softgrey
+  &.green
+    @extend .fs-green
+    color: $white
+
+.w40
+  width: 40px
+.w400
+  margin: 0 auto
+  max-width: 400px
+
+.aus-count
+  @extend .clearfix
+  input.form-text
+    float: left
+    border-radius: 3px 0 0 3px
+  .btn
+    border-left: 0
+    float: left
+    border-radius: 0
+    border-color: $border
+    &.minus
+      border-radius: 0 3px 3px 0
+    &:hover, &:focus
+      border-color: $aus-blue
+
+.aus-popover
+  position: relative
+  b
+    @extend .reg-14, .tac
+    width: 150px
+    position: absolute
+    bottom: calc(100% + 5px)
+    left: calc(50% - 75px)
+    background-color: rgba(0, 0, 0, .88)
+    color: $white
+    padding: 5px 10px
+    border-radius: 3px
+    opacity: 0
+    visibility: hidden
+    +transition(all .3s)
+    &::before
+      position: absolute
+      top: 100%
+      left: calc(50% - 2.5px)
+      border-left: 5px solid transparent
+      border-right: 5px solid transparent
+      border-top: 5px solid rgba(0, 0, 0, .88)
+      content: ''
+  &:hover, &:focus
+    b
+      opacity: 1
+      visibility: visible
+
+.fa-plus-circle,
+.fa-minus-circle
+  @extend .reg-16
+
+.fixed-button-step
+  padding: 0 20px
+  @extend .mt40, .tar
+
+.aus-title-submenu-xs
+  display: none
+  +mobile
+    display: block
+    border: 1px solid $aus-softgrey
+    border-radius: 3px
+    background-color: $white
+    padding: 10px 15px
+    margin: 20px 20px 0
+    background-image: url(../images/arrow-down.png)
+    background-position: calc(100% - 16px) 20px
+    background-repeat: no-repeat
+
+.aus-inline-loader
+  .fa
+    animation: rotating 2s linear infinite
+    +rotateLoader

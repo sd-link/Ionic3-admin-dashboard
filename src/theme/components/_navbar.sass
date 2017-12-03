@@ -1,0 +1,85 @@
+.fs-navbar
+  background-color: $white
+  border-bottom: 1px solid $aus-white-hover
+  @extend .tac
+  li
+    display: inline-block
+    a
+      display: block
+      padding: 16px
+      color: $aus-dark
+      border-bottom: 3px solid transparent
+    &.active
+      a
+        border-bottom-color: $aus-blue
+
+  +mobile
+    margin: -3px 20px 0
+    border: 1px solid $aus-softgrey
+    border-top: 0
+    display: none
+    border-radius: 0 0 3px 3px
+    li
+      text-align: left
+      display: block
+      &.active
+        a
+          background-color: $aus-blue
+          color: $white
+          border: 0
+
+  &.with-progress
+    ul
+      justify-content: center
+      display: flex
+      flex-wrap: wrap
+      padding: 0 30px
+      li
+        display: block
+        flex-basis: 0
+        flex-grow: 1
+        flex-shrink: 1
+        min-width: 100px
+        position: relative
+        padding: 13.5px 0
+        +mobile
+          min-width: 20%
+          flex: none
+        span
+          &:last-child
+            +mobile
+              display: none
+        &:before
+          position: absolute
+          left: -50%
+          bottom: -1px
+          width: 100%
+          height: 1px
+          background-color: $aus-white-hover
+          content: ''
+          z-index: 9
+        &:after
+          position: absolute
+          width: 10px
+          height: 10px
+          border-radius: 50%
+          bottom: -5px
+          left: calc(50% - 5px)
+          border: 1px solid $aus-white-hover
+          background-color: $aus-white-hover
+          content: ''
+          z-index: 10
+        &:last-child
+          &:before
+            width: 100%
+        &.active
+          &:before
+            background-color: $aus-green
+          &:after
+            background-color: $aus-green
+            border-color: $aus-green
+        &.passed
+          &:after
+            background-color: $aus-green
+        img
+          margin: 0 10px

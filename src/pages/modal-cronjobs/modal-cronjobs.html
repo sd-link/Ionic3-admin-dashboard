@@ -1,0 +1,25 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Cron Jobs</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-item no-lines text-wrap>
+      <p>
+          Cron jobs allow you to trigger actions that should take place at regular intervals or certain times.
+      </p>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label color="primary" stacked>Crontab</ion-label>
+      <ion-input [(ngModel)]="cronjobs.schedule" placeholder="eg. 0*****"></ion-input>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label color="primary" stacked>Command</ion-label>
+      <ion-textarea [(ngModel)]="cronjobs.command" placeholder="Enter your command"></ion-textarea>
+    </ion-item>
+  </ion-content>

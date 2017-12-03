@@ -1,0 +1,86 @@
+<!--
+Use this layout:
+https://4slicing.com/ausnimbus/user/modify-subscription.html
+
+Resources:
+Compute                              Used GiB / Limit GiB
+<a href="#">Show more details </a>
+
+- Pods
+- Deployment Resources
+- Persistent Volumes
+- Persistent Volume Count
+
+Estimated Monthly Cost:                 $123
+
+
+
+Only the Compute Limit is editable.
+
+-->
+
+<div class="pd20">
+  <div class="fs-box">
+    <loading-spinner *ngIf="loading"></loading-spinner>
+    <div *ngIf="!loading">
+      <div class="row">
+        <h2 class="muli-18">Resource Summary</h2>
+      </div>
+      <table class="fs-table form">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Used</th>
+            <th>Limit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="muli-16">Compute</td>
+            <td>
+              <div class="fs-form-group mib">
+                <input type="text" class="form-text" disabled [(ngModel)]="resource.computeResourceUsed">
+              </div>
+            </td>
+            <td>
+              <div class="fs-form-group mib">
+                <input type="text" class="form-text" name="compute-resource" (ngModelChange)="onResourceChange($event)" [(ngModel)]="resource.computeResource">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="muli-16">Pods</td>
+            <td>{{resource.podsUsed}}</td>
+            <td>{{resource.pods}}</td>
+          </tr>
+          <tr>
+            <td class="muli-16">Deployment Resources</td>
+            <td>{{resource.deploymentResourceUsed}}</td>
+            <td>{{resource.deploymentResource}}</td>
+          </tr>
+          <tr>
+            <td class="muli-16">Persistent Storage Claims</td>
+            <td>{{resource.persistentVolumeCountUsed}}</td>
+            <td>{{resource.persistentVolumeCount}}</td>
+          </tr>
+          <tr>
+            <td class="muli-16">Persistent Storage</td>
+            <td>{{resource.presistentStorageUsed}}</td>
+            <td>{{resource.presistentStorage}}</td>
+          </tr>
+          <tr>
+            <td class="muli-16">
+              Estimate Monthly Usage &nbsp;&nbsp;
+              <i class="fa fa-info-circle" title="Your actual spend will vary depending on your usage. For example if you only use 512MiB of a 1024MiB limit - you will only be billed for 512Mib"></i>
+            </td>
+            <td colspan="2">{{usage}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="mt40 tar">
+        <button (click)="onUpdate()" class="btn primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

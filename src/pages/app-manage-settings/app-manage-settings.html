@@ -1,0 +1,133 @@
+<ion-content>
+  <main class="fs-white">
+    <section>
+      <page-title>
+        <a (click)="backToProject()" class="link-back"><i class="fa fa-angle-left mr5"></i>Back to project</a> {{app?.deploymentConfig?.metadata?.name}}
+      </page-title>
+      <tabs [type]="'app'" [active]="'settings'" (onclick)="openPage($event)"></tabs>
+      <form class="form-with-border" *ngIf="!loadingData">
+        <div class="fs-form-group row ">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Domain Name</label>
+          </div>
+          <div class="fs-col-8-sm">
+            <div class="row">
+              <div class="fs-col-8">
+                <input type="text" class="form-text" placeholder="Eg. https://github.com/ausnimbus/node-ex.git">
+              </div>
+              <div class="fs-col-4">subdomain.com</div>
+            </div>
+            <div class="mt15">
+              <label class="fs-con-label mb0">
+                <input type="checkbox" name="a" class="checkbox" checked="">
+                Redirect to https
+              </label>
+            </div>
+            <div class="mt15">
+              <label class="fs-con-label mb0">
+                <input type="checkbox" name="a" class="checkbox" checked="">
+                Automatic certificate manager  <i class="fa fa-info-circle ml5"></i>
+              </label>
+            </div>
+            <div class="mt15">
+              <label class="fs-con-label mb0">
+                <input type="checkbox" name="a" class="checkbox">
+                Upload own SSL cert
+              </label>
+            </div>
+            <div class="mt20">
+              <a href="#"><i class="fa fa-plus mr10"></i>Add another domain name</a>
+            </div>
+          </div>
+        </div>
+        <div class="fs-form-group row ">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Environment Variables</label>
+            <div class="reg-16">Config vars change the way your app behaves. In addition to creating your own, some add-ons come with their own.</div>
+          </div>
+          <div class="fs-col-8-sm">
+            <div class="row mb10">
+              <div class="fs-col-4-sm">
+                Config Vars
+              </div>
+              <div class="fs-col-8-sm tar">
+                <button class="btn xs no-border">Cancel</button>
+                <button class="btn xs primary">Save</button>
+              </div>
+            </div>
+            <div class="aus-form-inline">
+              <span>
+                <input type="text" class="form-text" value="DATABASE_HOST">
+              </span>
+              <span>
+                <input type="text" class="form-text aus-encrypt-input" value="db_host">
+                <label class="aus-encrypt"><input type="checkbox" class="checkbox"><b class="reg-14 aus-grey">Encrypt</b></label>
+              </span>
+              <span>
+                <i class="fa fa-minus-circle aus-red"></i>
+              </span>
+            </div>
+            <div class="aus-form-inline">
+              <span>
+                <input type="text" class="form-text" value="DATABASE_NAME">
+              </span>
+              <span>
+                <input type="password" class="form-text aus-encrypt-input" value="db_host">
+                <label class="aus-encrypt"><input type="checkbox" class="checkbox"><b class="reg-14 aus-grey">Encrypt</b></label>
+              </span>
+              <span>
+                <i class="fa fa-minus-circle aus-red"></i>
+              </span>
+            </div>
+            <div class="aus-form-inline">
+              <span>
+                <input type="text" class="form-text">
+              </span>
+              <span>
+                <input type="password" class="form-text aus-encrypt-input">
+                <label class="aus-encrypt"><input type="checkbox" class="checkbox"><b class="reg-14 aus-grey">Encrypt</b></label>
+              </span>
+              <span>
+                <i class="fa fa-plus-circle aus-green"></i>
+              </span>
+            </div>
+            <div><a href="#" class="aus-grey"><i class="fa fa-lock mr5"></i>Lock Environment</a></div>
+          </div>
+        </div>
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Rollouts</label>
+          </div>
+          <div class="fs-col-6-sm">
+            <div class="fs-select single default">
+              <select class="fs-select default" name="resourceSize">
+                <option value="rolling">Rooling</option>
+              </select>
+            </div>
+            <div class="reg-16 mt15">A rollout is a staged series of activities that often accumulate meaning as they occur. <a href="#">Learn more</a></div>
+          </div>
+        </div>
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Continuious</label>
+          </div>
+          <div class="fs-col-6-sm">
+            <div class="fs-select single default">
+              <select class="fs-select default" name="resourceSize">
+                  <option value="Continuious Deployment">Continuious Deployment</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="fs-form-group row">
+          <div class="fs-col-4-sm">
+            <label class="l-label">Health Checks</label>
+          </div>
+          <div class="fs-col-5-sm">
+            <input type="text" class="form-text" placeholder="Configure endpoint (ie. /health)">
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+</ion-content>

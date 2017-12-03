@@ -1,0 +1,72 @@
+// Clearfix
+.clearfix
+  content: ""
+  display: table
+  clear: both
+
+// Container
+.fs-container
+  max-width: 1200px
+  margin: 0 auto
+  @extend .plr15
+  &>[class*='fs-col-']
+    float: left
+    padding: 0 15px
+  &-fluid
+    max-width: 100%
+    @extend .plr15
+    &>[class*='fs-col-']
+      float: left
+      padding: 0 15px
+
+  &:after
+    @extend .clearfix
+
+// Grid
+.row
+  margin-left: -15px
+  margin-right: -15px
+  &:after
+    @extend .clearfix
+  &>[class*='fs-col-']
+    float: left
+    padding: 0 15px
+    min-height: 1px
+    position: relative
+  &.no-gutter
+    margin: 0
+    padding-left: 0
+    padding-right: 0
+    &>[class*='fs-col-']
+      padding: 0
+
+=build-grid($prefix:'')
+
+  @for $i from 1 through length($fs-grid)
+    // All Devices
+    .#{$prefix}fs-col-#{nth($fs-grid, $i)}
+      width: calc(100% * #{nth($fs-grid, $i)}/12)
+
+    // Mobile
+    .#{$prefix}fs-col-#{nth($fs-grid, $i)}-xs
+      @media(min-width: $xxs)
+        width: calc(100% * #{nth($fs-grid, $i)}/12)
+      @media(max-width: $xxs)
+        width: 100%
+
+    .#{$prefix}fs-col-#{nth($fs-grid, $i)}-sm
+      @media(min-width: $sm)
+        width: calc(100% * #{nth($fs-grid, $i)}/12)
+      @media(max-width: $sm)
+        width: 100%
+
++build-grid()
+
+=build-grid-offset($prefix:'')
+  @for $i from 1 through length($fs-grid)
+    .#{$prefix}offset-#{nth($fs-grid, $i)}-sm
+      @media(min-width: $sm)
+        margin-left: calc(100% * #{nth($fs-grid, $i)}/12)
+      @media(max-width: $sm)
+        margin-left: 0
++build-grid-offset()

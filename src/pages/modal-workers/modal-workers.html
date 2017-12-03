@@ -1,0 +1,32 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Workers</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-item no-lines text-wrap>
+    <p>
+      Workers are key to building truly scalable web apps as they allow you to process tasks in the background outside of the user
+      request/response lifecycle.
+    </p>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label color="primary" stacked>Worker Count</ion-label>
+    <ion-select [(ngModel)]="worker.replicas">
+      <ion-option value="1">1</ion-option>
+      <ion-option value="2">2</ion-option>
+      <ion-option value="3">3</ion-option>
+      <ion-option value="4">4</ion-option>
+      <ion-option value="5">5</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label color="primary" stacked>Worker Command</ion-label>
+    <ion-textarea autoresize [(ngModel)]="worker.command" placeholder="Enter your command" class="command-textarea"></ion-textarea>
+  </ion-item>
+</ion-content>

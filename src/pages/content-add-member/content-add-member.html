@@ -1,0 +1,16 @@
+<div class="form">
+  <div class="mb20">Enter team member email address and assign role for the project.</div>
+  <div class="fs-form-group no-padding">
+    <input [(ngModel)]="newMember.email" placeholder="Member Email" type="email" [disabled]="isLoading" class="form-text">
+  </div>
+  <div class="fs-form-group no-padding">
+    <dropdown-select [selected]="newMember.role" [options]='dropdownOptions' (onSelect)="onRoleSelected($event)"></dropdown-select>
+  </div>
+
+  <loading-spinner *ngIf="isLoading"></loading-spinner>
+
+  <div class="mt40 tar">
+    <button class="btn no-border" (click)="dismiss()">Cancel</button>
+    <button class="btn primary" (click)="submitForm()" [disabled]="isLoading">Submit</button>
+  </div>
+</div>

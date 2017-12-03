@@ -1,0 +1,18 @@
+<ion-content>
+  <main [class.fs-white]="section == 'settings'" class="fs-full-height">
+    <section>
+      <page-title>
+        {{project?.displayName}}
+      </page-title>
+      <div class="fs-navbar">
+        <tabs [type]="'project'" [active]="section" (onclick)="openPage($event)"></tabs>
+      </div>
+      <project-apps *ngIf="section == 'apps'"></project-apps>
+      <project-components *ngIf="section == 'components'"></project-components>
+      <project-resources [name]="project.name" *ngIf="section == 'resources'"></project-resources>
+      <project-usage [name]="project.name" *ngIf="section == 'usage'"></project-usage>
+      <project-settings *ngIf="section == 'settings'"></project-settings>
+      <project-access *ngIf="section == 'access'"></project-access>
+    </section>
+  </main>
+</ion-content>
